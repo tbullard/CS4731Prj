@@ -1,4 +1,4 @@
-package ann;
+package dk.itu.mario.ann;
 
 import java.util.List;
 

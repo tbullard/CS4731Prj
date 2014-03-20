@@ -42,6 +42,7 @@ public class MyLevel extends Level{
 
 	    public void creat(long seed, int difficulty, int type)
 	    {
+	    	
 	        this.type = type;
 	        this.difficulty = difficulty;
 
@@ -51,7 +52,7 @@ public class MyLevel extends Level{
 	        //create the start location
 	        int length = 0;
 	        length += buildStraight(0, width, true);
-
+	        
 	        //create all of the medium sections
 	        while (length < width - 64)
 	        {
@@ -63,6 +64,7 @@ public class MyLevel extends Level{
 				length += buildTubes(length, width-length);
 				length += buildCannons(length, width-length);
 	        }
+	        
 
 	        //set the end piece
 	        int floor = height - 1 - random.nextInt(4);
@@ -81,7 +83,9 @@ public class MyLevel extends Level{
 	                }
 	            }
 	        }
-
+	        
+	        
+	        
 	        if (type == LevelInterface.TYPE_CASTLE || type == LevelInterface.TYPE_UNDERGROUND)
 	        {
 	            int ceiling = 0;
@@ -102,8 +106,11 @@ public class MyLevel extends Level{
 	                }
 	            }
 	        }
+	        
+	        
 
 	        fixWalls();
+	        
 
 	    }
 
