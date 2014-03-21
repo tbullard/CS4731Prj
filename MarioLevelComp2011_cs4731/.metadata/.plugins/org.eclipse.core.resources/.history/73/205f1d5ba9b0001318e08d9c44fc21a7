@@ -1,0 +1,8 @@
+package dk.itu.mario.level.generator;
+
+public enum PlayerStyle {
+	New,
+	Speed,
+	Killer,
+	Explorer
+}
