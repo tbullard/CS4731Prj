@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+public class LevelCrossovers {
+
+	public static Object getCrossoversFunction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,11 @@
+package optimization;
+
+public abstract class Individual<T> {
+
+	public T getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}

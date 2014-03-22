@@ -1,0 +1,10 @@
+package optimization;
+
+public abstract class Trainer {
+
+	public static void train(OptimizationAlgorithm optimizationAlgorithm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

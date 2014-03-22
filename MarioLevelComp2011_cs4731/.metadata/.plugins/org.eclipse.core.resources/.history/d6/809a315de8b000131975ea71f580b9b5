@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+public class GeneticAlgorithmProblem implements OptimizationProblem {
+
+	public GeneticAlgorithmProblem(EvaluationFunction evalFn,
+			Object mutationFunctions, Object crossoversFunction) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

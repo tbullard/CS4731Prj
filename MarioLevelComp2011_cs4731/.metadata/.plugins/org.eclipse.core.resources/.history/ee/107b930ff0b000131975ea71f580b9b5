@@ -1,0 +1,9 @@
+package optimization;
+
+import dk.itu.mario.level.Individual;
+
+public interface OptimizationProblem<T> {
+
+	Individual<T>	createRandom();
+	double			value(Individual<T> individual);
+}

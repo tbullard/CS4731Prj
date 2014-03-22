@@ -1,0 +1,7 @@
+package dk.itu.mario.level;
+
+import optimization.MutationFunction;
+
+public class LevelMutationFunction<T> implements MutationFunction {
+
+}

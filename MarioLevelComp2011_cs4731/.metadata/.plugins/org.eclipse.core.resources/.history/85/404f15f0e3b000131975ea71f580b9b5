@@ -1,0 +1,8 @@
+package dk.itu.mario.level;
+
+public class LevelGenerator {
+	public List<Building> create(int style, int difficulty) {
+		
+	
+	}
+}

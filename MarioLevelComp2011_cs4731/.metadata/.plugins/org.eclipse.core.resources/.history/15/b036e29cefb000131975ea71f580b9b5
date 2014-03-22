@@ -1,0 +1,9 @@
+package optimization;
+
+public abstract class Trainer {
+
+	public static double train(OptimizationAlgorithm optimizationAlgorithm, int iterations) {
+		double trainError = 0;
+	}
+
+}

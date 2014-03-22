@@ -1,0 +1,8 @@
+package optimization;
+
+import java.util.List;
+
+public interface MutationFunction<T> {
+
+	abstract public Individual<T> mutate(Individual<T> individual);
+}

@@ -1,0 +1,29 @@
+package optimization;
+
+import java.util.List;
+
+
+public class GeneticAlgorithmProblem<T> implements OptimizationProblem<T> {
+
+	public GeneticAlgorithmProblem(EvaluationFunction evalFn) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Individual<T> createRandom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double value(Individual<T> individual) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public Individual<T> mate(List<Individual<T>> parents) {
+		T individualM = 
+		return T.mate()
+	}
+
+}

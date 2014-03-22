@@ -1,15 +1,17 @@
 package dk.itu.mario.level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import dk.itu.mario.MarioInterface.Constraints;
+import optimization.Individual;
 import dk.itu.mario.MarioInterface.GamePlay;
 import dk.itu.mario.MarioInterface.LevelInterface;
 import dk.itu.mario.engine.sprites.SpriteTemplate;
 import dk.itu.mario.engine.sprites.Enemy;
 
 
-public class MyLevel extends Level{
+public class MyLevel extends Level implements Individual<Level>{
 	//Store information about the level
 	 public   int ENEMIES = 0; //the number of enemies the level contains
 	 public   int BLOCKS_EMPTY = 0; // the number of empty blocks
@@ -17,29 +19,53 @@ public class MyLevel extends Level{
 	 public   int BLOCKS_POWER = 0; // the number of power blocks
 	 public   int COINS = 0; //These are the coins in boxes that Mario collect
 
+	 public List<Building> buildings = new ArrayList<Building>();
  
 	private static Random levelSeedRandom = new Random();
-	    public static long lastSeed;
-
-	    Random random;
-
-  
-	    private int difficulty;
-	    private int type;
-		private int gaps;
+	public static long lastSeed;
+	
+	Random random;
+	  
+	private int difficulty;
+	private int type;
+	private int gaps;
 		
 		public MyLevel(int width, int height)
 	    {
 			super(width, height);
+			creat(0,0,0);
 	    }
 
 
 		public MyLevel(int width, int height, long seed, int difficulty, int type, GamePlay playerMetrics)
 	    {
 	        this(width, height);
-	        creat(seed, difficulty, type);
+	        buildings.clear();
+	        System.out.println(seed);
+	        create(LevelGenerator.create(type,difficulty));
 	    }
 
+
+		public MyLevel(Individual<Level> individual) {
+			MyLevel level = (MyLevel) individual.getData();
+			ENEMIES 	 = level.ENEMIES; 
+			BLOCKS_EMPTY = level.BLOCKS_EMPTY; 
+			BLOCKS_COINS = level.BLOCKS_COINS; 
+			BLOCKS_POWER = level.BLOCKS_POWER; 
+			COINS 		 = level.COINS; 
+			buildings 	 = level.buildings;
+		}
+
+
+		public void create(Level level) {
+			for(Building building : ((MyLevel)level).buildings) {
+				this.buildings.add(building);
+				building.build(this);
+			}
+	        fixWalls();
+			if(buildings.isEmpty()) System.out.println("Failed to add buildings!");
+		}
+		
 	    public void creat(long seed, int difficulty, int type)
 	    {
 	    	
@@ -48,74 +74,24 @@ public class MyLevel extends Level{
 
 	        lastSeed = seed;
 	        random = new Random(seed);
-
+	        
 	        //create the start location
-	        int length = 0;
-	        length += buildStraight(0, width, true);
+//	        totalLength += buildStraight(0, width, true);
+//	        totalLength = build(0,width-11,height-1);
+	        this.buildings.add(new StraightBuilding(0,10,height-1));
+	        this.buildings.add(new StraightBuilding(10,20,height-3));
+	        this.buildings.add(new StraightBuilding(20,30,height-1));
+//	        this.buildings.add(new StraightHillBuilding(30,40,height-1));
+//	        this.buildings.add(new JumpBuilding(30,40,height-1));
+//	        this.buildings.add(new TubeBuilding(30,40,height-1));
+//	        this.buildings.add(new CannonBuilding(30,40,height-1));
+	        this.buildings.add(new EndBuilding(20,width,height-2));
 	        
-	        //create all of the medium sections
-	        while (length < width - 64)
-	        {
-	            //length += buildZone(length, width - length);
-				length += buildStraight(length, width-length, false);
-				length += buildStraight(length, width-length, false);
-				length += buildHillStraight(length, width-length);
-				length += buildJump(length, width-length);
-				length += buildTubes(length, width-length);
-				length += buildCannons(length, width-length);
-	        }
-	        
-
-	        //set the end piece
-	        int floor = height - 1 - random.nextInt(4);
-
-	        xExit = length + 8;
-	        yExit = floor;
-
-	        // fills the end piece
-	        for (int x = length; x < width; x++)
-	        {
-	            for (int y = 0; y < height; y++)
-	            {
-	                if (y >= floor)
-	                {
-	                    setBlock(x, y, GROUND);
-	                }
-	            }
-	        }
-	        
-	        
-	        
-	        if (type == LevelInterface.TYPE_CASTLE || type == LevelInterface.TYPE_UNDERGROUND)
-	        {
-	            int ceiling = 0;
-	            int run = 0;
-	            for (int x = 0; x < width; x++)
-	            {
-	                if (run-- <= 0 && x > 4)
-	                {
-	                    ceiling = random.nextInt(4);
-	                    run = random.nextInt(4) + 4;
-	                }
-	                for (int y = 0; y < height; y++)
-	                {
-	                    if ((x > 4 && y <= ceiling) || x < 1)
-	                    {
-	                        setBlock(x, y, GROUND);
-	                    }
-	                }
-	            }
-	        }
-	        
-	        
-
-	        fixWalls();
-	        
-
+	        for(Building building : buildings) building.build(this);
 	    }
 
 
-	    private int buildJump(int xo, int maxLength)
+		private int buildJump(int xo, int maxLength)
 	    {	gaps++;
 	    	//jl: jump length
 	    	//js: the number of blocks that are available at either side for free
@@ -227,7 +203,7 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        addEnemyLine(xo + 1, xo + length - 1, floor - 1);
+//	        addEnemyLine(xo + 1, xo + length - 1, floor - 1);
 
 	        int h = floor;
 
@@ -369,15 +345,17 @@ public class MyLevel extends Level{
 	    private int buildStraight(int xo, int maxLength, boolean safe)
 	    {
 	        int length = random.nextInt(10) + 2;
-
+	        
 	        if (safe)
 	        	length = 10 + random.nextInt(5);
 
-	        if (length > maxLength)
-	        	length = maxLength;
-
+	        length = maxLength;
+	        
+	        if (length >= maxLength)
+	        	length = maxLength-11;
+	        
 	        int floor = height - 1 - random.nextInt(4);
-
+	        	        
 	        //runs from the specified x position to the length of the segment
 	        for (int x = xo; x < xo + length; x++)
 	        {
@@ -474,6 +452,27 @@ public class MyLevel extends Level{
 
 	    private void fixWalls()
 	    {
+	    	if (type == LevelInterface.TYPE_CASTLE || type == LevelInterface.TYPE_UNDERGROUND)
+	    	{
+	            int ceiling = 0;
+	            int run = 0;
+	            for (int x = 0; x < width; x++)
+	            {
+	                if (run-- <= 0 && x > 4)
+	                {
+	                    ceiling = random.nextInt(4);
+	                    run = random.nextInt(4) + 4;
+	                }
+	                for (int y = 0; y < height; y++)
+	                {
+	                    if ((x > 4 && y <= ceiling) || x < 1)
+	                    {
+	                        setBlock(x, y, GROUND);
+	                    }
+	                }
+	            }
+	        }
+	    	
 	        boolean[][] blockMap = new boolean[width + 1][height + 1];
 
 	        for (int x = 0; x < width + 1; x++)
@@ -656,6 +655,10 @@ public class MyLevel extends Level{
 	        return clone;
 
 	      }
+
+		public Level getData() {
+			return this;
+		}
 
 
 }

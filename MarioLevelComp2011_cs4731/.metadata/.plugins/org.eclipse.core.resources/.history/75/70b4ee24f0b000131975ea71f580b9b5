@@ -1,0 +1,14 @@
+package optimization;
+
+public abstract class Trainer<T> {
+
+	public static double train(OptimizationAlgorithm<T> optimizationAlgorithm, int iterations) {
+		double trainError = 0;
+		
+		for(int i  = 0; i < iterations; i++)
+			trainError += optimizationAlgorithm.train();
+		
+		return trainError;
+	}
+
+}

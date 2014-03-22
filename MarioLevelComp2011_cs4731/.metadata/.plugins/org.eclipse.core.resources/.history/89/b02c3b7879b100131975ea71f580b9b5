@@ -1,0 +1,6 @@
+package dk.itu.mario.level.myGenerator;
+
+
+public abstract class Tool {
+	public abstract int build(int start,int length, int floor,  Level level);
+}

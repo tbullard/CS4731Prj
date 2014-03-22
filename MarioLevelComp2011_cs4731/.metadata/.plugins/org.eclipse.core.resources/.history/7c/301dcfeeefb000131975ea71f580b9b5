@@ -1,0 +1,12 @@
+package optimization;
+
+import java.util.ArrayList;
+
+import dk.itu.mario.level.Individual;
+
+public abstract class OptimizationAlgorithm {
+	protected OptimizationProblem optimizationProblem;
+	
+	public abstract Individual getOptimal();
+
+}

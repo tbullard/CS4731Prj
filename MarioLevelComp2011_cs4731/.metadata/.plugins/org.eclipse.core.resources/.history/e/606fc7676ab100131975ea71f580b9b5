@@ -1,0 +1,5 @@
+package dk.itu.mario.level;
+
+public interface Tool {
+	int build(int height, int floot, Level level);
+}

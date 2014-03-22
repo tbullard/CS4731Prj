@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+
+public interface OptimizationAlgorithm {
+	OptimizationProblem	optimizationProblem;
+	
+	ArrayList<Building> getOptimal();
+
+}

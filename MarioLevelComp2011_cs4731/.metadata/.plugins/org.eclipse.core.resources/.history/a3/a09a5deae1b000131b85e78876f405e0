@@ -1,0 +1,6 @@
+package dk.itu.mario.level;
+
+public abstract class Building {
+	public int lenght;
+	
+}

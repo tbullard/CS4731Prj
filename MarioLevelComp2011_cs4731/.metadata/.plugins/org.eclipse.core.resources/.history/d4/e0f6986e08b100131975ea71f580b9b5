@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+public class LevelMutations {
+
+	public static Object getMutationFunctions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

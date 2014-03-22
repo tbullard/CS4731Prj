@@ -1,0 +1,14 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+
+public abstract class OptimizationAlgorithm {
+	protected OptimizationProblem optimizationProblem;
+	
+	public OptimizationAlgorithm(OptimizationProblem optimizationProblem2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	abstract ArrayList<Building> getOptimal();
+
+}

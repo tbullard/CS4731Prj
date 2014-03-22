@@ -1,0 +1,28 @@
+package dk.itu.mario.level;
+
+public class StraightBuildingTool extends Tool {
+
+	@Override
+	public int build(int start, int length, int floor, Level level) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int build(MyLevel level, int xo, int length, int floor){
+		
+	    //runs from the specified x position to the length of the segment
+	    for (int x = xo; x < xo + length; x++)
+	    {
+	        for (int y = 0; y < level.height; y++)
+	        {
+	            if (y >= floor)
+	            {
+	            	level.setBlock(x, y, Level.GROUND);
+	            }
+	        }
+	    }
+	    
+	    return length;
+	}
+
+}

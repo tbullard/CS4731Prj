@@ -35,7 +35,6 @@ public class CustomizedLevel extends Level implements LevelInterface {
                            int type, GamePlay playerMetrics) {
         super(width, height);
         this.playerM = playerMetrics;
-        System.out.println(">>>>>>::"+playerMetrics.coinsCollected);
         creat(seed, difficulty, type);
     }
 

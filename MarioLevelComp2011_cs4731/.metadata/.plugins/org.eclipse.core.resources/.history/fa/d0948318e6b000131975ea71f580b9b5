@@ -1,0 +1,21 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+
+public class LevelGenerator {
+	
+	
+	public static EvaluationFunction	evalFn;
+	public static OptimizationProblem	optimizationProblem;
+	public static OptimizationAlgorithm	optimizationAlgorithm;
+	
+	evalFn 					= new KnapsackEvaluationFunction(copies,profits,weights,MAX_WEIGHT);
+	optimizationProblem		= new GeneticAlgorithmProblem(evalFn,LevelMutations.getMutationFunctions(),LevelCrossover);
+	optimizationAlgorithm	=
+	
+	public ArrayList<Building> create(int style, int difficulty) {
+		ArrayList<Building> result = new ArrayList<Building>();
+		result = optimizationAlgorithm.getOptimal();
+		return result;
+	}
+}

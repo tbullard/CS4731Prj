@@ -1,0 +1,14 @@
+package dk.itu.mario.level;
+
+public abstract class Building {
+	public static Tool buildingTool;
+	public int	start;
+	public int	lenght;
+	public int	floor;
+	
+	Building(int lenght, int floor)
+	
+	public void build(Level level) {
+		buildingTool.build(lenght, floor, level);
+	}
+}

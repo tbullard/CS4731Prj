@@ -1,0 +1,14 @@
+package dk.itu.mario.level;
+
+import optimization.Individual;
+import optimization.MutationFunction;
+
+public class LevelMutationFunction<T> implements MutationFunction<T> {
+
+	@Override
+	public Individual<T> mutate(Individual<T> individual) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

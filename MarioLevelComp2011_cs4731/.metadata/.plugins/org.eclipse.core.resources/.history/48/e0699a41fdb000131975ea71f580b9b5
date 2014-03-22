@@ -1,0 +1,17 @@
+package dk.itu.mario.level;
+
+import java.util.List;
+
+import optimization.CrossoverFunction;
+import optimization.Individual;
+
+public class LevelCrossoverFunction implements CrossoverFunction<Level> {
+
+	@Override
+	public List<Individual<Level>> mate(Individual<Level> father,
+			Individual<Level> mother) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

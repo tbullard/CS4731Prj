@@ -1,0 +1,15 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+
+public class LevelGenerator {
+	public static EvaluationFunction	evalFn;
+	public static OptimizationProblem	optimizationProblem;
+	public static OptimizationAlgorithm	optimizationAlgorithm;
+	
+	public Level create(int style, int difficulty) {
+		ArrayList<Building> result = new ArrayList<Building>();
+		Level = optimizationAlgorithm.getOptimal();
+		return result;
+	}
+}

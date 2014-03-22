@@ -1,0 +1,24 @@
+package dk.itu.mario.level;
+
+public class EngBuildingTool extends Tool{
+
+	public int build(int start, int length, int floor, Level level) {
+		level.xExit = length + 8;
+		level.yExit = floor;
+	
+	    // fills the end piece
+	    for (int x = length; x < level.width; x++)
+	    {
+	        for (int y = 0; y < level.height; y++)
+	        {
+	            if (y >= floor)
+	            {
+	            	level.setBlock(x, y, Level.GROUND);
+	            }
+	        }
+	    }
+	    
+	    return (level.width - length);
+	}
+
+}

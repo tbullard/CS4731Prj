@@ -1,0 +1,23 @@
+package dk.itu.mario.level.myGenerator;
+
+
+public class StraightBuildingTool extends Tool {
+
+
+	public int build(int start, int length, int floor, Level level){
+	    //runs from the specified x position to the length of the segment
+	    for (int x = start; x < start + length; x++)
+	    {
+	        for (int y = 0; y < level.height; y++)
+	        {
+	            if (y >= floor)
+	            {
+	            	level.setBlock(x, y, Level.GROUND);
+	            }
+	        }
+	    }
+	    
+	    return length;
+	}
+
+}

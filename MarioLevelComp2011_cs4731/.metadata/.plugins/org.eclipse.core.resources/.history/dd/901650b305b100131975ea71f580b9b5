@@ -1,0 +1,58 @@
+package dk.itu.mario.level;
+
+import optimization.CrossoverFunction;
+import optimization.EvaluationFunction;
+import optimization.GeneticAlgorithm;
+import optimization.GeneticAlgorithmProblem;
+import optimization.KnapsackEvaluationFunction;
+import optimization.MutationFunction;
+import optimization.OptimizationAlgorithm;
+import optimization.OptimizationProblem;
+import optimization.Trainer;
+
+
+public class LevelGenerator {
+	public static final int	MAX_WEIGHT = 100;
+	public static final int	ITERATIONS = 1;
+	
+	public static	EvaluationFunction<Level>		evalFn;
+	public static	OptimizationProblem<Level>		optimizationProblem;
+	public static 	OptimizationAlgorithm<Level>	optimizationAlgorithm;
+	public static 	MutationFunction<Level>			mutationFn;
+	public static 	CrossoverFunction<Level>		crossoverFn;
+	
+	private static	LevelGenerator					singleton;
+	
+	private LevelGenerator() {
+		
+		int[]		copies 	= new int[10];
+		double[]	profits	= new double[10],
+					weights = new double[10];
+		
+		int		population		= 1;
+		double	replacementRate	= 0.60, 
+				mutationRate	= 0.20;
+		
+		mutationFn	= new LevelMutationFunction();
+		crossoverFn = new LevelCrossoverFunction();
+		
+		evalFn 					= new KnapsackEvaluationFunction<Level>(copies,profits,weights,MAX_WEIGHT);
+		optimizationProblem		= new GeneticAlgorithmProblem<Level>(evalFn,mutationFn,crossoverFn);
+		optimizationAlgorithm	= new GeneticAlgorithm<Level>(population, replacementRate, mutationRate, optimizationProblem);
+	}
+	
+	static void init(){
+		if(singleton != null) return;
+		else {
+			singleton = new LevelGenerator();
+		}
+	}
+	
+	public static Level create(int style, int difficulty) {
+		init();
+		
+		Trainer.train(optimizationAlgorithm,ITERATIONS);
+		Level result = (optimizationAlgorithm.getOptimal().getData());
+		return result;
+	}
+}

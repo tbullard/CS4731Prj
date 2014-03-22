@@ -1,0 +1,6 @@
+package dk.itu.mario.level;
+
+public interface Building {
+	public int length;
+	
+}

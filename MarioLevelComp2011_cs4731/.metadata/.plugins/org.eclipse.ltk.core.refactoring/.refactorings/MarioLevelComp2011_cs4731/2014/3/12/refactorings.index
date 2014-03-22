@@ -1,0 +1,25 @@
+1395393240740	Rename local variable 'length'
+1395396890015	Delete element
+1395396969004	Delete element
+1395402495563	Move compilation unit
+1395402512492	Move compilation units
+1395402634448	Move compilation unit
+1395402638715	Move compilation unit
+1395403085141	Move compilation unit
+1395408418795	Rename type 'CrossoverFn'
+1395408698454	Infer generic type arguments
+1395408714001	Infer generic type arguments
+1395409263544	Extract method 'normalizeProbabilities'
+1395409744555	Move compilation unit
+1395409888078	Infer generic type arguments
+1395410519872	Infer generic type arguments
+1395410725078	Infer generic type arguments
+1395413548582	Delete element
+1395413552467	Delete element
+1395457291089	Move method 'build'
+1395459879182	Extract method 'build'
+1395460001305	Move method 'build'
+1395460184884	Rename type 'EngBuildingTool'
+1395461941964	Move compilation units
+1395462101961	Move compilation units
+1395462104378	Delete element

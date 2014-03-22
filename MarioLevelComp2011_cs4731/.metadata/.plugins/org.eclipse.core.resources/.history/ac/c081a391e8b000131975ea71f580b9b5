@@ -1,0 +1,18 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+
+public class GeneticAlgorithm implements OptimizationAlgorithm {
+
+	public GeneticAlgorithm(int population, float replacementRate,
+			float mutationRate, OptimizationProblem optimizationProblem) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public ArrayList<Building> getOptimal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

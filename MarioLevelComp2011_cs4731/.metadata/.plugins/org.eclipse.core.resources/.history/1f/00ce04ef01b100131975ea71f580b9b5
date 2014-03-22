@@ -1,0 +1,6 @@
+package optimization;
+
+public interface EvaluationFunction {
+	
+	double value(Individual<T> individual);
+}

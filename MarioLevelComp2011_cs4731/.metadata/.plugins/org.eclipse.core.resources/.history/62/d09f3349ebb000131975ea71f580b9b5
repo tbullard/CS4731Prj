@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+public abstract class Individual {
+
+	public T getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,6 @@
+package optimization;
+
+public interface CrossoverFn<T> {
+	
+	abstract public  Individual<T> mate(Individual<T> father, Individual<T> mother);
+}

@@ -1,0 +1,35 @@
+package optimization;
+
+import java.util.List;
+
+
+public class GeneticAlgorithmProblem<T> implements OptimizationProblem<T> {
+
+	CrossoverFunction<T>	crossoverFn;
+	MutationFunction<T>		mutationFn;
+	EvaluationFunction		evalFn;/
+	
+	public GeneticAlgorithmProblem(EvaluationFunction evalFn, MutationFunction<T> mutationFn, CrossoverFunction<T> crossoverFn) {
+		this.evalFn			= evalFn;
+		this.crossoverFn 	= crossoverFn;
+		this.mutationFn		= mutationFn;
+	}
+
+	@Override
+	public Individual<T> createRandom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public double value(Individual<T> individual) {
+		return evalFn.value(individual);
+	}
+	
+	public List<Individual<T>> mate(List<Individual<T>> parents) {
+		return crossoverFn.mate(parents.get(0),parents.get(1));
+	}
+
+	public Individual<T> mutate(Individual<T> individual) {
+		return mutationFn.mutate(individual);
+	}
+}

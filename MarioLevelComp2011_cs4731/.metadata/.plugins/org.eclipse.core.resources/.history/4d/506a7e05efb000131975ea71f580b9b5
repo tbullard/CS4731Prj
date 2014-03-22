@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+
+public class KnapsackEvaluationFunction implements EvaluationFunction {
+
+	public KnapsackEvaluationFunction(int[] copies, double[] profits, double[] weights, int maxWeight) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

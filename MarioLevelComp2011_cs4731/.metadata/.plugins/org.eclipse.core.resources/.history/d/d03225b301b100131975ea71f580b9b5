@@ -1,0 +1,15 @@
+package optimization;
+
+
+public class KnapsackEvaluationFunction implements EvaluationFunction {
+
+	public KnapsackEvaluationFunction(int[] copies, double[] profits, double[] weights, int maxWeight) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public double value(Individual<L> individual) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

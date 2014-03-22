@@ -1,0 +1,10 @@
+package dk.itu.mario.level;
+
+public abstract class Trainer {
+
+	public static void train(OptimizationAlgorithm optimizationAlgorithm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

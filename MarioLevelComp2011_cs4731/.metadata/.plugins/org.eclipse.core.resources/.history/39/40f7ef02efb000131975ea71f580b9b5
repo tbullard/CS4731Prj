@@ -1,0 +1,24 @@
+package dk.itu.mario.level;
+
+import optimization.EvaluationFunction;
+import optimization.OptimizationProblem;
+
+public class GeneticAlgorithmProblem<T> implements OptimizationProblem<T> {
+
+	public GeneticAlgorithmProblem(EvaluationFunction evalFn, Object mutationFunctions, Object crossoversFunction) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Individual<T> createRandom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double value(Individual<T> individual) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
