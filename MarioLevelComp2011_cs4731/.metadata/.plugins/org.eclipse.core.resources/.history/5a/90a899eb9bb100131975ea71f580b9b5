@@ -1,0 +1,82 @@
+package dk.itu.mario.level;
+
+public class StraightHillBuildingTool extends Tool {
+
+	public int build(int start, int length, int floor, Level level) {
+        if (length > maxLength) length = maxLength;
+
+        int floor = height - 1 - random.nextInt(4);
+        for (int x = xo; x < xo + length; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (y >= floor)
+                {
+                	level.setBlock(x, y, GROUND);
+                }
+            }
+        }
+
+//        addEnemyLine(xo + 1, xo + length - 1, floor - 1);
+
+        int h = floor;
+
+        boolean keepGoing = true;
+
+        boolean[] occupied = new boolean[length];
+        while (keepGoing)
+        {
+            h = h - 2 - random.nextInt(3);
+
+            if (h <= 0)
+            {
+                keepGoing = false;
+            }
+            else
+            {
+                int l = random.nextInt(5) + 3;
+                int xxo = random.nextInt(length - l - 2) + xo + 1;
+
+                if (occupied[xxo - xo] || occupied[xxo - xo + l] || occupied[xxo - xo - 1] || occupied[xxo - xo + l + 1])
+                {
+                    keepGoing = false;
+                }
+                else
+                {
+                    occupied[xxo - xo] = true;
+                    occupied[xxo - xo + l] = true;
+                    addEnemyLine(xxo, xxo + l, h - 1);
+                    if (random.nextInt(4) == 0)
+                    {
+                        decorate(xxo - 1, xxo + l + 1, h);
+                        keepGoing = false;
+                    }
+                    for (int x = xxo; x < xxo + l; x++)
+                    {
+                        for (int y = h; y < floor; y++)
+                        {
+                            int xx = 5;
+                            if (x == xxo) xx = 4;
+                            if (x == xxo + l - 1) xx = 6;
+                            int yy = 9;
+                            if (y == h) yy = 8;
+
+                            if (getBlock(x, y) == 0)
+                            {
+                                setBlock(x, y, (byte) (xx + yy * 16));
+                            }
+                            else
+                            {
+                                if (getBlock(x, y) == HILL_TOP_LEFT) setBlock(x, y, HILL_TOP_LEFT_IN);
+                                if (getBlock(x, y) == HILL_TOP_RIGHT) setBlock(x, y, HILL_TOP_RIGHT_IN);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return length;
+	}
+
+}

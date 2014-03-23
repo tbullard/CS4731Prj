@@ -1,0 +1,32 @@
+package dk.itu.mario.level;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import optimization.CrossoverFunction;
+import optimization.Distribution;
+import optimization.Individual;
+
+public class LevelCrossoverFunction implements CrossoverFunction<MyLevel> {
+
+	@Override
+	public List<Individual<MyLevel>> mate(Individual<MyLevel> father, Individual<MyLevel> mother) {
+		List<Individual<MyLevel>> offspring = new ArrayList<Individual<MyLevel>>();
+		//TODO
+		MyLevel child_A, childB;
+		int buildingCount = ((MyLevel) father.getData()).buildings.size();
+		int changes = 1 + ((MyLevel) father.getData()).random.nextInt(buildingCount);
+		
+		double[] probabilities = new double[buildingCount];
+		for(int i = 0; i < buildingCount; i++) probabilities[i] = 1.0/buildingCount;
+		
+		Distribution.sample();
+
+		offspring.add(child_A);
+		offspring.add(childB);
+//		offspring.add(((MyLevel) father.getData()).clone());
+//		offspring.add(((MyLevel) mother.getData()).clone());
+		return offspring;
+	}
+
+}

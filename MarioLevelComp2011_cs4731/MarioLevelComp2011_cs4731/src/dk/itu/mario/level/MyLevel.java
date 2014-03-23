@@ -9,18 +9,19 @@ import dk.itu.mario.MarioInterface.GamePlay;
 import dk.itu.mario.MarioInterface.LevelInterface;
 import dk.itu.mario.engine.sprites.SpriteTemplate;
 import dk.itu.mario.engine.sprites.Enemy;
+import dk.itu.mario.level.generator.PlayerStyle;
 
 
-public class MyLevel extends Level implements Individual<Level>{
+public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	//Store information about the level
-	 public   int ENEMIES = 0; //the number of enemies the level contains
-	 public   int BLOCKS_EMPTY = 0; // the number of empty blocks
-	 public   int BLOCKS_COINS = 0; // the number of coin blocks
-	 public   int BLOCKS_POWER = 0; // the number of power blocks
-	 public   int COINS = 0; //These are the coins in boxes that Mario collect
-
-	 public List<Building> buildings = new ArrayList<Building>();
- 
+	public   int ENEMIES = 0; //the number of enemies the level contains
+	public   int BLOCKS_EMPTY = 0; // the number of empty blocks
+	public   int BLOCKS_COINS = 0; // the number of coin blocks
+	public   int BLOCKS_POWER = 0; // the number of power blocks
+	public   int COINS = 0; //These are the coins in boxes that Mario collect
+	
+	public List<Building> buildings = new ArrayList<Building>();
+	 
 	private static Random levelSeedRandom = new Random();
 	public static long lastSeed;
 	
@@ -28,66 +29,100 @@ public class MyLevel extends Level implements Individual<Level>{
 	  
 	private int difficulty;
 	private int type;
-	private int gaps;
+	public  int gaps;
 		
+	static int count = 0;
+
 		public MyLevel(int width, int height)
 	    {
 			super(width, height);
-			creat(0,0,0);
+	        random = new Random();
 	    }
 
 
 		public MyLevel(int width, int height, long seed, int difficulty, int type, GamePlay playerMetrics)
 	    {
 	        this(width, height);
-	        buildings.clear();
-	        System.out.println(seed);
-	        create(LevelGenerator.create(type,difficulty));
+	        //TODO: getPlayerStyle from playerMetrics
+	        PlayerStyle playerStyle = PlayerStyle.NEW;
+	        
+	        create(LevelGenerator.create(playerStyle));
+	        fixWalls();
 	    }
 
-
-		public MyLevel(Individual<Level> individual) {
-			MyLevel level = (MyLevel) individual.getData();
-			ENEMIES 	 = level.ENEMIES; 
-			BLOCKS_EMPTY = level.BLOCKS_EMPTY; 
-			BLOCKS_COINS = level.BLOCKS_COINS; 
-			BLOCKS_POWER = level.BLOCKS_POWER; 
-			COINS 		 = level.COINS; 
-			buildings 	 = level.buildings;
+		public static MyLevel createRandom(int width, int height) {
+			MyLevel level		= new MyLevel(width,height);
+			level.creat(count,0,0);
+	        count++;
+	        return level;
 		}
 
+		public MyLevel copy() {
+			MyLevel level		= new MyLevel(this.width,this.height);
+			level.ENEMIES		= this.ENEMIES; 
+			level.BLOCKS_EMPTY	= this.BLOCKS_EMPTY; 
+			level.BLOCKS_COINS	= this.BLOCKS_COINS; 
+			level.BLOCKS_POWER	= this.BLOCKS_POWER; 
+			level.COINS			= this.COINS; 
+			level.type			= this.type;
+			level.difficulty	= this.difficulty;
+			
+			level.buildings.clear();
+			for(Building building : this.buildings) level.buildings.add(building.clone());
+			return level;
+		}
 
-		public void create(Level level) {
-			for(Building building : ((MyLevel)level).buildings) {
-				this.buildings.add(building);
-				building.build(this);
-			}
-	        fixWalls();
-			if(buildings.isEmpty()) System.out.println("Failed to add buildings!");
+		private void create(MyLevel level) {
+//			System.out.println("Creating lvl");
+//			this.ENEMIES		= level.ENEMIES; 
+//			this.BLOCKS_EMPTY	= level.BLOCKS_EMPTY; 
+//			this.BLOCKS_COINS	= level.BLOCKS_COINS; 
+//			this.BLOCKS_POWER	= level.BLOCKS_POWER; 
+//			this.COINS			= level.COINS; 
+//			this.type			= level.type;
+//			this.difficulty		= level.difficulty;
+			
+			this.buildings.add(new StraightBuilding(0,10,height-1));
+			for(Building building : level.buildings) this.buildings.add(building.clone());
+	        this.buildings.add(new EndBuilding(width-10,width,height-1));
+	        for(Building building : buildings) building.build(this);
 		}
 		
 	    public void creat(long seed, int difficulty, int type)
 	    {
-	    	
 	        this.type = type;
 	        this.difficulty = difficulty;
 
 	        lastSeed = seed;
-	        random = new Random(seed);
 	        
-	        //create the start location
-//	        totalLength += buildStraight(0, width, true);
-//	        totalLength = build(0,width-11,height-1);
-	        this.buildings.add(new StraightBuilding(0,10,height-1));
-	        this.buildings.add(new StraightBuilding(10,20,height-3));
-	        this.buildings.add(new StraightBuilding(20,30,height-1));
-//	        this.buildings.add(new StraightHillBuilding(30,40,height-1));
-//	        this.buildings.add(new JumpBuilding(30,40,height-1));
-//	        this.buildings.add(new TubeBuilding(30,40,height-1));
-//	        this.buildings.add(new CannonBuilding(30,40,height-1));
-	        this.buildings.add(new EndBuilding(20,width,height-2));
+	        for(int i =10; i < width-10; i+=10) {
+	        	switch((int)(seed)%10) {
+	        	case 0:
+	        	case 1:
+	        		this.buildings.add(new StraightBuilding(i,10,height-1));
+	        		break;
+	        	case 2:
+	        	case 3:
+	        	case 4:
+	        	case 5:
+	        	case 6:
+	        	case 7:
+	        		this.buildings.add(new StraightHillBuilding(i,10,height-1));
+	        		break;
+	        	case 8:
+	        	case 9:
+	        		this.buildings.add(new JumpBuilding(i,10,height-1));
+	        		break;
+	        	}
+	        }
+//	        this.buildings.add(new JumpBuilding(10,10,height-2));
+//	        this.buildings.add(new StraightHillBuilding(20,30,height-5));
+//	        this.buildings.add(new StraightBuilding(30,40,height-2));
+////	        this.buildings.add(new JumpBuilding(30,40,height-1));
+////	        this.buildings.add(new TubeBuilding(30,40,height-1));
+////	        this.buildings.add(new CannonBuilding(30,40,height-1));
 	        
-	        for(Building building : buildings) building.build(this);
+//	        for(Building building : buildings) building.build(this);
 	    }
 
 
@@ -265,7 +300,7 @@ public class MyLevel extends Level implements Individual<Level>{
 	        return length;
 	    }
 
-	    private void addEnemyLine(int x0, int x1, int y)
+	    public void addEnemyLine(int x0, int x1, int y)
 	    {
 	        for (int x = x0; x < x1; x++)
 	        {
@@ -379,7 +414,7 @@ public class MyLevel extends Level implements Individual<Level>{
 	        return length;
 	    }
 
-	    private void decorate(int xStart, int xLength, int floor)
+	    public void decorate(int xStart, int xLength, int floor)
 	    {
 	    	//if its at the very top, just return
 	        if (floor < 1)
@@ -467,7 +502,7 @@ public class MyLevel extends Level implements Individual<Level>{
 	                {
 	                    if ((x > 4 && y <= ceiling) || x < 1)
 	                    {
-	                        setBlock(x, y, GROUND);
+	                        this.setBlock(x, y, GROUND);
 	                    }
 	                }
 	            }
@@ -631,34 +666,11 @@ public class MyLevel extends Level implements Individual<Level>{
 	            }
 	        }
 	    }
-	    
-	    public RandomLevel clone() throws CloneNotSupportedException {
 
-	    	RandomLevel clone=new RandomLevel(width, height);
-
-	    	clone.xExit = xExit;
-	    	clone.yExit = yExit;
-	    	byte[][] map = getMap();
-	    	SpriteTemplate[][] st = getSpriteTemplate();
-	    	
-	    	for (int i = 0; i < map.length; i++)
-	    		for (int j = 0; j < map[i].length; j++) {
-	    			clone.setBlock(i, j, map[i][j]);
-	    			clone.setSpriteTemplate(i, j, st[i][j]);
-	    	}
-	    	clone.BLOCKS_COINS = BLOCKS_COINS;
-	    	clone.BLOCKS_EMPTY = BLOCKS_EMPTY;
-	    	clone.BLOCKS_POWER = BLOCKS_POWER;
-	    	clone.ENEMIES = ENEMIES;
-	    	clone.COINS = COINS;
-	    	
-	        return clone;
-
-	      }
-
-		public Level getData() {
+		public MyLevel getData() {
 			return this;
 		}
+	    
 
 
 }

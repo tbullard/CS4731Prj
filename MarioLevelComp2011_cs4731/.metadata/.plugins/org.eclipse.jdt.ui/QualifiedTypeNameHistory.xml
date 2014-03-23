@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.awt.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="optimization.CrossoverFunction"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.MutationFunction"/>
+<fullyQualifiedTypeName name="optimization.Individual"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.StraightBuilding"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.MyLevel"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.StraightHillBuilding"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.EndBuildingTool"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.StraightBuildingTool"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.StraightHillBuildingTool"/>
+<fullyQualifiedTypeName name="optimization.Distribution"/>
+<fullyQualifiedTypeName name="dk.itu.mario.level.generator.PlayerStyle"/>
 </qualifiedTypeNameHistroy>

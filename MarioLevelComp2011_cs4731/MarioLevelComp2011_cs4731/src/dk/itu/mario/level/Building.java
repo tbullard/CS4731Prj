@@ -2,7 +2,7 @@ package dk.itu.mario.level;
 
 
 public abstract class Building {
-	public static Tool buildingTool;
+	public Tool buildingTool;
 	public int	start;
 	public int	lenght;
 	public int	floor;
@@ -13,7 +13,13 @@ public abstract class Building {
 		this.floor	= floor;
 	}
 	
-	public int build(Level level) {
-		return buildingTool.build(start, lenght, floor, level);
+	public abstract int build(MyLevel level);
+	
+	public Building clone(){
+		Building clone = this.getCopy();
+		clone.buildingTool = this.buildingTool.clone();
+		return clone;
 	}
+
+	public abstract Building getCopy();
 }

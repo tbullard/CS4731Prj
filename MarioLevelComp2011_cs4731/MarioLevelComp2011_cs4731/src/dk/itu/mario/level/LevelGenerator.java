@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+import dk.itu.mario.level.generator.PlayerStyle;
 import optimization.CrossoverFunction;
 import optimization.EvaluationFunction;
 import optimization.GeneticAlgorithm;
@@ -15,11 +16,11 @@ public class LevelGenerator {
 	public static final int	MAX_WEIGHT = 100;
 	public static final int	ITERATIONS = 10;
 	
-	public static	EvaluationFunction<Level>		evalFn;
-	public static	OptimizationProblem<Level>		optimizationProblem;
-	public static 	OptimizationAlgorithm<Level>	optimizationAlgorithm;
-	public static 	MutationFunction<Level>			mutationFn;
-	public static 	CrossoverFunction<Level>		crossoverFn;
+	public static	EvaluationFunction<MyLevel>		evalFn;
+	public static	OptimizationProblem<MyLevel>		optimizationProblem;
+	public static 	OptimizationAlgorithm<MyLevel>	optimizationAlgorithm;
+	public static 	MutationFunction<MyLevel>			mutationFn;
+	public static 	CrossoverFunction<MyLevel>		crossoverFn;
 	
 	private static	LevelGenerator					singleton;
 	
@@ -35,10 +36,10 @@ public class LevelGenerator {
 		
 		mutationFn	= new LevelMutationFunction();
 		crossoverFn = new LevelCrossoverFunction();
-		evalFn		= new KnapsackEvaluationFunction<Level>(copies,profits,weights,MAX_WEIGHT);
+		evalFn		= new KnapsackEvaluationFunction<MyLevel>(copies,profits,weights,MAX_WEIGHT);
 
-		optimizationProblem		= new GeneticAlgorithmProblem<Level>(evalFn,mutationFn,crossoverFn);
-		optimizationAlgorithm	= new GeneticAlgorithm<Level>(population, replacementRate, mutationRate, optimizationProblem);
+		optimizationProblem		= new GeneticAlgorithmProblem<MyLevel>(evalFn,mutationFn,crossoverFn);
+		optimizationAlgorithm	= new GeneticAlgorithm<MyLevel>(population, replacementRate, mutationRate, optimizationProblem);
 	}
 	
 	static void init(){
@@ -46,11 +47,11 @@ public class LevelGenerator {
 		else singleton = new LevelGenerator();
 	}
 	
-	public static Level create(int style, int difficulty) {
+	public static MyLevel create(PlayerStyle style) {
 		init();
 		
 		Trainer.train(optimizationAlgorithm,ITERATIONS);
-		Level result = (optimizationAlgorithm.getOptimal().getData());
+		MyLevel result = (optimizationAlgorithm.getOptimal().getData());
 		return result;
 	}
 }

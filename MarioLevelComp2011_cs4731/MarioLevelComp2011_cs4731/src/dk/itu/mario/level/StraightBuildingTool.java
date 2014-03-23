@@ -4,7 +4,7 @@ package dk.itu.mario.level;
 public class StraightBuildingTool extends Tool {
 
 
-	public int build(int start, int length, int floor, Level level){
+	public int build(int start, int length, int floor, MyLevel level){
 	    //runs from the specified x position to the length of the segment
 	    for (int x = start; x < start + length; x++)
 	    {
@@ -18,6 +18,10 @@ public class StraightBuildingTool extends Tool {
 	    }
 	    
 	    return length;
+	}
+
+	public Tool clone() {
+		return new StraightBuildingTool();
 	}
 
 }

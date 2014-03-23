@@ -1,9 +1,0 @@
-package dk.itu.mario.level;
-
-import java.util.ArrayList;
-
-public class LevelGenerator {
-	public ArrayList<Building> create(int style, int difficulty) {
-		ArrayList<Building> result = new ArrayList<Building>();
-	}
-}

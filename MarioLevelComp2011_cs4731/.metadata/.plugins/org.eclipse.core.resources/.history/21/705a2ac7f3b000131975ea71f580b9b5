@@ -1,9 +1,0 @@
-package optimization;
-
-import java.util.List;
-
-public class Distribution {
-	public static List<Individual<T>> sample(List<Individual<T>> collection, int samples) {
-		
-	}
-}

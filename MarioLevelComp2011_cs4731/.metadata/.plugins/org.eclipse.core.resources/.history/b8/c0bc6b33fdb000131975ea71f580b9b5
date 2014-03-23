@@ -1,7 +1,0 @@
-package dk.itu.mario.level;
-
-import optimization.CrossoverFunction;
-
-public class LevelCrossoverFunction implements CrossoverFunction {
-
-}

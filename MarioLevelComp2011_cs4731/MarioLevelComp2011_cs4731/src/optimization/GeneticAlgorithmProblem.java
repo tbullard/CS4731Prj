@@ -17,9 +17,8 @@ public class GeneticAlgorithmProblem<T> implements OptimizationProblem<T> {
 		this.mutationFn		= mutationFn;
 	}
 
-	@Override
 	public Individual<T> createRandom() {
-		return (Individual<T>) new MyLevel(320,15);
+		return (Individual<T>) MyLevel.createRandom(320,15);
 	}
 
 	public double value(Individual<T> individual) {

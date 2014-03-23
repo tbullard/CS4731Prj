@@ -1,7 +1,0 @@
-package optimization;
-
-public class Distribution {
-	sample(List<Individual<T>> collection) {
-		
-	}
-}

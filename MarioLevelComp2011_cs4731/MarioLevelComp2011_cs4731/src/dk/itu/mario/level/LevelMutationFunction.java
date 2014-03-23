@@ -6,13 +6,13 @@ import java.util.List;
 import optimization.Individual;
 import optimization.MutationFunction;
 
-public class LevelMutationFunction implements MutationFunction<Level> {
+public class LevelMutationFunction implements MutationFunction<MyLevel> {
 
 	@Override
-	public Individual<Level> mutate(Individual<Level> individual) {
+	public Individual<MyLevel> mutate(Individual<MyLevel> individual) {
 		// TODO
-		Individual<Level> mutaded = new MyLevel(individual);
-		return mutaded;
+		Individual<MyLevel> mutated = ((MyLevel) individual.getData()).copy();		
+		return mutated;
 	}
 
 }
