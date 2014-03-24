@@ -12,7 +12,7 @@ public class StraightBuildingTool extends Tool {
 	        {
 	            if (y >= floor)
 	            {
-	            	level.setBlock(x, y, Level.GROUND);
+	            	level.setBlock(x, y, MyLevel.GROUND);
 	            }
 	        }
 	    }

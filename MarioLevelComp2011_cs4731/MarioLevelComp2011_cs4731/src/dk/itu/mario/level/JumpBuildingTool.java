@@ -31,17 +31,17 @@ public class JumpBuildingTool extends Tool {
             {
                 for (int y = level.height; y >= floor - stairHeight; y--)
                 {	//paint ground up until the floor
-                    if (y >= floor) level.setBlock(x, y, Level.GROUND);
+                    if (y >= floor) level.setBlock(x, y, MyLevel.GROUND);
                     
                   //if it is above ground, start making stairs of rocks
                     else if (hasStairs)
                     {	//LEFT SIDE
                     	if((x < startHole ) && (x > stairLeftBegin)) {
-                    		if(( Math.abs(x - stairLeftBegin) >= Math.abs(y - floor) )) level.setBlock(x, y, Level.ROCK);
+                    		if(( Math.abs(x - stairLeftBegin) >= Math.abs(y - floor) )) level.setBlock(x, y, MyLevel.ROCK);
                     	}
                         //RIGHT SIDE
                     	else if((startHole < x) && (x < stairRightEnd)) {
-                    		if((Math.abs(x - endHole) + Math.abs(y - floor) ) <= stairHeight) level.setBlock(x, y, Level.ROCK);
+                    		if((Math.abs(x - endHole) + Math.abs(y - floor) ) <= stairHeight) level.setBlock(x, y, MyLevel.ROCK);
                     	}
                     }
                 }

@@ -27,7 +27,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	
 	Random random;
 	  
-	private int difficulty;
+	public int difficulty;
 	private int type;
 	public  int gaps;
 		
@@ -98,16 +98,20 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        for(int i =10; i < width-10; i+=10) {
 	        	switch((int)(seed)%10) {
 	        	case 0:
-	        	case 1:
 	        		this.buildings.add(new StraightBuilding(i,10,height-1));
 	        		break;
+	        	case 1:
 	        	case 2:
 	        	case 3:
+	        		this.buildings.add(new StraightHillBuilding(i,10,height-1));
+	        		break;
 	        	case 4:
 	        	case 5:
+	        		this.buildings.add(new CannonBuilding(i,10,height-1));
+	        		break;
 	        	case 6:
 	        	case 7:
-	        		this.buildings.add(new StraightHillBuilding(i,10,height-1));
+	        		this.buildings.add(new TubeBuilding(i,10,height-1));
 	        		break;
 	        	case 8:
 	        	case 9:
@@ -115,14 +119,6 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        		break;
 	        	}
 	        }
-//	        this.buildings.add(new JumpBuilding(10,10,height-2));
-//	        this.buildings.add(new StraightHillBuilding(20,30,height-5));
-//	        this.buildings.add(new StraightBuilding(30,40,height-2));
-////	        this.buildings.add(new JumpBuilding(30,40,height-1));
-////	        this.buildings.add(new TubeBuilding(30,40,height-1));
-////	        this.buildings.add(new CannonBuilding(30,40,height-1));
-	        
-//	        for(Building building : buildings) building.build(this);
 	    }
 
 
@@ -300,29 +296,6 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        return length;
 	    }
 
-	    public void addEnemyLine(int x0, int x1, int y)
-	    {
-	        for (int x = x0; x < x1; x++)
-	        {
-	            if (random.nextInt(35) < difficulty + 1)
-	            {
-	                int type = random.nextInt(4);
-
-	                if (difficulty < 1)
-	                {
-	                    type = Enemy.ENEMY_GOOMBA;
-	                }
-	                else if (difficulty < 3)
-	                {
-	                    type = random.nextInt(3);
-	                }
-
-	                setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
-	                ENEMIES++;
-	            }
-	        }
-	    }
-
 	    private int buildTubes(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 5;
@@ -412,6 +385,29 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        }
 
 	        return length;
+	    }
+
+	    public void addEnemyLine(int x0, int x1, int y)
+	    {
+	        for (int x = x0; x < x1; x++)
+	        {
+	            if (random.nextInt(35) < difficulty + 1)
+	            {
+	                int type = random.nextInt(4);
+
+	                if (difficulty < 1)
+	                {
+	                    type = Enemy.ENEMY_GOOMBA;
+	                }
+	                else if (difficulty < 3)
+	                {
+	                    type = random.nextInt(3);
+	                }
+
+	                setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(35) < difficulty));
+	                ENEMIES++;
+	            }
+	        }
 	    }
 
 	    public void decorate(int xStart, int xLength, int floor)
