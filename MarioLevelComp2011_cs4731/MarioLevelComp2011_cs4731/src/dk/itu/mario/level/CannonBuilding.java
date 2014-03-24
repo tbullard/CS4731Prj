@@ -16,4 +16,15 @@ public class CannonBuilding extends Building {
 	public int build(MyLevel level) {
 		return buildingTool.build(start, lenght, floor, level);
 	}
+
+	@Override
+	public double getWeight() {
+		return 1;
+	}
+
+	@Override
+	public double getProfit() {
+		return 2;
+	}
+
 }

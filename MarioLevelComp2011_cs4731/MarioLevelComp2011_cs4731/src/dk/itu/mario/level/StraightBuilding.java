@@ -16,4 +16,14 @@ public class StraightBuilding extends Building {
 		return buildingTool.build(start, lenght, floor, level);
 	}
 
+	@Override
+	public double getWeight() {
+		return 1;
+	}
+
+	@Override
+	public double getProfit() {
+		return 1;
+	}
+
 }

@@ -98,9 +98,9 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        for(int i =10; i < width-10; i+=10) {
 	        	switch((int)(seed)%10) {
 	        	case 0:
+	        	case 1:
 	        		this.buildings.add(new StraightBuilding(i,10,height-1));
 	        		break;
-	        	case 1:
 	        	case 2:
 	        	case 3:
 	        		this.buildings.add(new StraightHillBuilding(i,10,height-1));
@@ -665,6 +665,34 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 
 		public MyLevel getData() {
 			return this;
+		}
+
+
+		@Override
+		public double[] getVariables() {
+			double[] variables = new double[this.buildings.size()];
+			for(int i=0; i < variables.length; i++) variables[i] = 1.0;
+			return variables;
+		}
+
+
+		@Override
+		public double[] getWeights() {
+			double[] weights = new double[this.buildings.size()];
+			for(int i=0; i < weights.length; i++) {
+				weights[i] = this.buildings.get(i).getWeight();
+			}
+			return weights;
+		}
+
+
+		@Override
+		public double[] getProfits() {
+			double[] profits = new double[this.buildings.size()];
+			for(int i=0; i < profits.length; i++) {
+				profits[i] = this.buildings.get(i).getProfit();
+			}
+			return profits;
 		}
 	    
 

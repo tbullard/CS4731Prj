@@ -26,17 +26,13 @@ public class LevelGenerator {
 	
 	private LevelGenerator() {
 		
-		int[]		copies 	= new int[10];
-		double[]	profits	= new double[10],
-					weights = new double[10];
-		
 		int		population		= 200;
 		double	replacementRate	= 0.60, 
 				mutationRate	= 0.20;
 		
 		mutationFn	= new LevelMutationFunction();
 		crossoverFn = new LevelCrossoverFunction();
-		evalFn		= new KnapsackEvaluationFunction<MyLevel>(copies,profits,weights,MAX_WEIGHT);
+		evalFn		= new KnapsackEvaluationFunction<MyLevel>(MAX_WEIGHT);
 
 		optimizationProblem		= new GeneticAlgorithmProblem<MyLevel>(evalFn,mutationFn,crossoverFn);
 		optimizationAlgorithm	= new GeneticAlgorithm<MyLevel>(population, replacementRate, mutationRate, optimizationProblem);

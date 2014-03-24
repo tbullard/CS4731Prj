@@ -23,4 +23,6 @@ public abstract class Building {
 	}
 
 	public abstract Building getCopy();
+	public abstract double getWeight();
+	public abstract double getProfit();
 }
