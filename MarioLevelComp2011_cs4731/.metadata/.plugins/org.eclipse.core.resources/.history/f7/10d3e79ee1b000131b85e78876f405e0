@@ -1,7 +1,0 @@
-package dk.itu.mario.level;
-
-public class Building {
-	public int length;
-	
-
-}

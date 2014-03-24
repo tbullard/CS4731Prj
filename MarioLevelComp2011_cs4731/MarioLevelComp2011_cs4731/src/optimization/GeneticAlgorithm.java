@@ -21,7 +21,6 @@ public class GeneticAlgorithm<T> extends OptimizationAlgorithm<T> {
 		populationSize		= size;
 		populationToMate 	= (int) Math.round(replacementRate * populationSize);
 		populationToMutate	= (int) Math.round(mutationRate * populationSize);
-		System.out.println(populationSize+","+populationToMate+","+populationToMutate);
 		population = new ArrayList<Individual<T>>();
 		summedProbabilities = 0;
 		probabilities = new double[populationSize];

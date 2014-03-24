@@ -1,6 +1,7 @@
 package dk.itu.mario.level;
 
 
+
 public abstract class Building {
 	public Tool buildingTool;
 	public int	start;

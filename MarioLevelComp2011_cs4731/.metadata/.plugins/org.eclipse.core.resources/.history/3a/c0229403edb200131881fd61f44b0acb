@@ -1,0 +1,21 @@
+package dk.itu.mario.level.toolbox;
+
+import dk.itu.mario.level.MyLevel;
+
+public class TubeBuilding extends Building {
+
+	public TubeBuilding(int start, int lenght, int floor) {
+		super(start, lenght, floor);
+		buildingTool = new TubeBuildingTool();
+	}
+
+	public Building getCopy() {
+		return new TubeBuilding(this.start,this.lenght,this.floor);
+	}
+
+	@Override
+	public int build(MyLevel level) {
+		return buildingTool.build(start, lenght, floor, level);
+	}
+
+}

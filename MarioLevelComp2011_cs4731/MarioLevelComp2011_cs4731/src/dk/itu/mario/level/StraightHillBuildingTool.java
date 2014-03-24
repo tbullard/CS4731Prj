@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class StraightHillBuildingTool extends Tool {
 
 	public int build(int start, int length, int floor, MyLevel level) {

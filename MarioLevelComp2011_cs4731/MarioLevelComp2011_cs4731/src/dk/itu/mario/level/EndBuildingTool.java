@@ -1,6 +1,7 @@
 package dk.itu.mario.level;
 
 
+
 public class EndBuildingTool extends Tool{
 
 	public int build(int start, int length, int floor, MyLevel level) {

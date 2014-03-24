@@ -1,0 +1,19 @@
+package dk.itu.mario.level;
+
+public class CannonBuilding extends Building {
+
+	CannonBuilding(int start, int lenght, int floor) {
+		super(start, lenght, floor);
+		buildingTool = new CannongBuildingTool();
+	}
+
+	public Building getCopy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public int build(MyLevel level) {
+		return buildingTool.build(start, lenght, floor, level);
+	}
+}

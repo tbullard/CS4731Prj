@@ -25,7 +25,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	private static Random levelSeedRandom = new Random();
 	public static long lastSeed;
 	
-	Random random;
+	public Random random;
 	  
 	public int difficulty;
 	private int type;

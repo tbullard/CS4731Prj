@@ -12,7 +12,7 @@ public class LevelCrossoverFunction implements CrossoverFunction<MyLevel> {
 	@Override
 	public List<Individual<MyLevel>> mate(Individual<MyLevel> father, Individual<MyLevel> mother) {
 		List<Individual<MyLevel>> offspring = new ArrayList<Individual<MyLevel>>();
-		//TODO
+		
 		MyLevel child_A = new MyLevel(320,15), 
 				child_B = new MyLevel(320,15);
 		
@@ -26,8 +26,6 @@ public class LevelCrossoverFunction implements CrossoverFunction<MyLevel> {
 		
 		offspring.add(child_A);
 		offspring.add(child_B);
-//		offspring.add(((MyLevel) father.getData()).clone());
-//		offspring.add(((MyLevel) mother.getData()).clone());
 		return offspring;
 	}
 

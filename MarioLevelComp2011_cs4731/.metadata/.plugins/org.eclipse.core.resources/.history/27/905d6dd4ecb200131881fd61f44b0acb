@@ -1,0 +1,20 @@
+package dk.itu.mario.level;
+
+import dk.itu.mario.level.MyLevel;
+
+public class EndBuilding extends Building {
+
+	EndBuilding(int start, int lenght, int floor) {
+		super(start, lenght, floor);
+		buildingTool = new EndBuildingTool();
+	}
+
+	public Building getCopy() {
+		return new EndBuilding(this.start,this.lenght,this.floor);
+	}
+
+	@Override
+	public int build(MyLevel level) {
+		return buildingTool.build(start, lenght, floor, level);
+	}
+}

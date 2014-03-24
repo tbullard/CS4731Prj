@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class JumpBuilding extends Building {
 
 	public JumpBuilding(int start, int lenght, int floor) {

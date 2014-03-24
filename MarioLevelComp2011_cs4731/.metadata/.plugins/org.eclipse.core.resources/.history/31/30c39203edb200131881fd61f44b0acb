@@ -1,0 +1,9 @@
+package dk.itu.mario.level.toolbox;
+
+import dk.itu.mario.level.MyLevel;
+
+
+public abstract class Tool {
+	public abstract int build(int start,int length, int floor, MyLevel level);
+	public abstract Tool clone();
+}

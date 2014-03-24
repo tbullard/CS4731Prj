@@ -1,0 +1,17 @@
+package dk.itu.mario.level;
+
+public class TubeBuildingTool extends Tool {
+
+	@Override
+	public int build(int start, int length, int floor, MyLevel level) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Tool clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

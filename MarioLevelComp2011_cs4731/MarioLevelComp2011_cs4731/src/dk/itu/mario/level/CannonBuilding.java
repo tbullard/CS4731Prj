@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class CannonBuilding extends Building {
 
 	public CannonBuilding(int start, int lenght, int floor) {

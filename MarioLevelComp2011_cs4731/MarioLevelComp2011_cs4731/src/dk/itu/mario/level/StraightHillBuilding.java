@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class StraightHillBuilding extends Building {
 
 	public StraightHillBuilding(int start, int lenght, int floor) {

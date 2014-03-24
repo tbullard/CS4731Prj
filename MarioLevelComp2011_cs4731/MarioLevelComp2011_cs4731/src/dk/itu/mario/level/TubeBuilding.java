@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class TubeBuilding extends Building {
 
 	public TubeBuilding(int start, int lenght, int floor) {

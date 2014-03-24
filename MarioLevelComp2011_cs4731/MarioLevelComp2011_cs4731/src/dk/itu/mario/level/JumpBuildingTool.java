@@ -1,5 +1,6 @@
 package dk.itu.mario.level;
 
+
 public class JumpBuildingTool extends Tool {
 
 	public int build(int start, int length, int floor, MyLevel level) {
@@ -12,8 +13,6 @@ public class JumpBuildingTool extends Tool {
 
         int startHole = jumpStart;
 		int endHole = jumpStart + jumpLength;
-//		System.out.println(start+","+end);
-		System.out.println("hole: "+startHole+","+endHole);
 		
 		boolean hasStairs = level.random.nextInt(3) == 0;
         int maxStairHeight = Math.min(start - startHole, endHole - end);

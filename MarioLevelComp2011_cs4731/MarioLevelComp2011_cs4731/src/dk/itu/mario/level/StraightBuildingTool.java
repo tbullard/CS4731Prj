@@ -1,6 +1,7 @@
 package dk.itu.mario.level;
 
 
+
 public class StraightBuildingTool extends Tool {
 
 

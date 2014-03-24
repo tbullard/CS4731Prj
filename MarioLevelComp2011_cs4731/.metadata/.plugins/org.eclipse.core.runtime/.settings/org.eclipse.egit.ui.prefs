@@ -1,2 +1,2 @@
-commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>Added\:&\#x0A; * Optimization package&\#x0A; * Building Tools Mechanism&\#x0A; &\#x0A;TODO\:&\#x0A; * create mutate, mate and eval functions&\#x0A; * more building tools&\#x0A; </message>\r\n</messages>
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>Added\:&\#x0A;&\#x09;* Cannon and Tube buildings/tools</message>\r\n<message>Added\:&\#x0A; * Optimization package&\#x0A; * Building Tools Mechanism&\#x0A; &\#x0A;TODO\:&\#x0A; * create mutate, mate and eval functions&\#x0A; * more building tools&\#x0A; </message>\r\n</messages>
 eclipse.preferences.version=1

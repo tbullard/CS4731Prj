@@ -1,0 +1,56 @@
+package dk.itu.mario.level;
+
+public class CannonBuildingTool extends Tool {
+
+	@Override
+	public int build(int start, int length, int floor, MyLevel level) {
+        int length = random.nextInt(10) + 2;
+        if (length > maxLength) length = maxLength;
+
+        int floor = height - 1 - random.nextInt(4);
+        int xCannon = xo + 1 + random.nextInt(4);
+        for (int x = xo; x < xo + length; x++)
+        {
+            if (x > xCannon)
+            {
+                xCannon += 2 + random.nextInt(4);
+            }
+            if (xCannon == xo + length - 1) xCannon += 10;
+            int cannonHeight = floor - random.nextInt(4) - 1;
+
+            for (int y = 0; y < height; y++)
+            {
+                if (y >= floor)
+                {
+                    setBlock(x, y, GROUND);
+                }
+                else
+                {
+                    if (x == xCannon && y >= cannonHeight)
+                    {
+                        if (y == cannonHeight)
+                        {
+                            setBlock(x, y, (byte) (14 + 0 * 16));
+                        }
+                        else if (y == cannonHeight + 1)
+                        {
+                            setBlock(x, y, (byte) (14 + 1 * 16));
+                        }
+                        else
+                        {
+                            setBlock(x, y, (byte) (14 + 2 * 16));
+                        }
+                    }
+                }
+            }
+        }
+
+        return length;
+	}
+
+	@Override
+	public Tool clone() {
+		return new CannonBuildingTool();
+	}
+
+}

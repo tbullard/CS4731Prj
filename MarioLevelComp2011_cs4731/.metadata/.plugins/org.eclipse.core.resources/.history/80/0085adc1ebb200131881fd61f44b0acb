@@ -1,0 +1,17 @@
+package dk.itu.mario.level;
+
+public class CannonBuilding extends Building {
+
+	@Override
+	public int build(MyLevel level) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Building getCopy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

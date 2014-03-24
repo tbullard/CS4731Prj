@@ -17,9 +17,9 @@ public class LevelGenerator {
 	public static final int	ITERATIONS = 10;
 	
 	public static	EvaluationFunction<MyLevel>		evalFn;
-	public static	OptimizationProblem<MyLevel>		optimizationProblem;
+	public static	OptimizationProblem<MyLevel>	optimizationProblem;
 	public static 	OptimizationAlgorithm<MyLevel>	optimizationAlgorithm;
-	public static 	MutationFunction<MyLevel>			mutationFn;
+	public static 	MutationFunction<MyLevel>		mutationFn;
 	public static 	CrossoverFunction<MyLevel>		crossoverFn;
 	
 	private static	LevelGenerator					singleton;
