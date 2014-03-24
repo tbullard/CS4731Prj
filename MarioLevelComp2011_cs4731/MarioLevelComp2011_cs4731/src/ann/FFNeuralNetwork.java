@@ -1,4 +1,4 @@
-package dk.itu.mario.ann;
+package ann;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,10 +15,11 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
 
     private HashMap<NetworkLevel, HashMap<Integer, NetworkNode>> neuralMap;
     private HashMap<NetworkLevel, Integer> nodeLevelNumber;
+    private NetworkNode biasNode;
 
     public FFNeuralNetwork(int inputs, int hiddens, int outputs) {
         nodeLevelNumber = new HashMap<NetworkLevel, Integer>();
-        nodeLevelNumber.put(NetworkLevel.Input, inputs + 1);
+        nodeLevelNumber.put(NetworkLevel.Input, inputs);
         nodeLevelNumber.put(NetworkLevel.Hidden, hiddens);
         nodeLevelNumber.put(NetworkLevel.Output, outputs);
         neuralMap = new HashMap<NetworkLevel, HashMap<Integer, NetworkNode>>();
@@ -43,13 +44,14 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
                 workingMap.put(i, newNode);
             }
         }
+        biasNode = new NetworkNode(1, (nodeLevelNumber.get(NetworkLevel.Output) + nodeLevelNumber.get(NetworkLevel.Hidden)));
         return;
     }
 
     public List<Double> classifyInstance(Datum attributesDatum) {
         List<Double> attributesList = attributesDatum.getAttributes();
-        for (int i = 1; i < nodeLevelNumber.get(NetworkLevel.Input); i++) {
-            neuralMap.get(NetworkLevel.Input).get(i).setNodeValue(attributesList.get((i - 1)));
+        for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Input); i++) {
+            neuralMap.get(NetworkLevel.Input).get(i).setNodeValue(attributesList.get(i));
         }
         for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Hidden); i++) {
             double totalHiddenInput = 0;
@@ -58,6 +60,7 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
                 double inputNodeWeight = neuralMap.get(NetworkLevel.Input).get(j).getOutputWeightAt(i);
                 totalHiddenInput += inputNodeValue * inputNodeWeight;
             }
+            totalHiddenInput += biasNode.getOutputWeightAt(i) * biasNode.getNodeValue();
             double hiddenNodeValue = 1.0 / (1 + Math.pow(Math.E, -totalHiddenInput));
             neuralMap.get(NetworkLevel.Hidden).get(i).setNodeValue(hiddenNodeValue);
         }
@@ -70,6 +73,7 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
                 double hiddenNodeWeight = neuralMap.get(NetworkLevel.Hidden).get(j).getOutputWeightAt(i);
                 totalOutputInput += hiddenNodeValue * hiddenNodeWeight;
             }
+            totalOutputInput += biasNode.getOutputWeightAt(i + nodeLevelNumber.get(NetworkLevel.Hidden)) * biasNode.getNodeValue();
             intermediateValues.add(totalOutputInput);
             simpleTotal += Math.pow(Math.E, totalOutputInput);
         }
@@ -91,20 +95,24 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
                 List<Double> trueClassification = trainingData.get(l).getClassificaitons();
                 List<Double> networkClassification = classifyInstance(new Datum(attributes));
                 HashMap<Integer, List<Double>> changeInHiddenWeights = new HashMap<Integer, List<Double>>();
-                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Hidden); i++) {
+                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Hidden) + 1; i++) {
                     ArrayList<Double> weightChanges = new ArrayList<Double>();
                     for (int j = 0; j < nodeLevelNumber.get(NetworkLevel.Output); j++) {
-                        double currentValue = neuralMap.get(NetworkLevel.Hidden).get(i).getNodeValue();
-                        double difference = trueClassification.get(j) - networkClassification.get(j);
-                        double weightChange = epochWeight * currentValue * difference;
+                        double currentValue, weightChange, difference;
+                        difference = trueClassification.get(j) - networkClassification.get(j);
+                        if(i < nodeLevelNumber.get(NetworkLevel.Hidden)) {
+                            currentValue = neuralMap.get(NetworkLevel.Hidden).get(i).getNodeValue();
+                            weightChange = epochWeight * currentValue * difference;
+                        } else {
+                            currentValue = biasNode.getNodeValue();
+                            weightChange = epochWeight * currentValue * difference;
+                        }
                         weightChanges.add(weightChange);
                     }
                     changeInHiddenWeights.put(i, weightChanges);
                 }
-
                 HashMap<Integer, List<Double>> changeInInputWeights = new HashMap<Integer, List<Double>>();
-
-                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Input); i++) {
+                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Input) + 1; i++) {
                     ArrayList<Double> weightChanges = new ArrayList<Double>();
                     for (int j = 0; j < nodeLevelNumber.get(NetworkLevel.Hidden); j++) {
                         double summedDifference = 0;
@@ -114,24 +122,36 @@ public class FFNeuralNetwork implements NeuralNetwork, Serializable {
                             double weight = neuralMap.get(NetworkLevel.Hidden).get(j).getOutputWeightAt(k);
                             summedDifference += difference * weight;
                         }
-                        double inputWeight = i > 0 ? attributes.get(i - 1) : 1;
+                        double inputWeight = i < nodeLevelNumber.get(NetworkLevel.Input) ? attributes.get(i) : biasNode.getNodeValue();
                         double weightChange = epochWeight * summedDifference * hiddenValue * (1 - hiddenValue) * inputWeight;
                         weightChanges.add(weightChange);
                     }
                     changeInInputWeights.put(i, weightChanges);
                 }
-                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Hidden); i++) {
+                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Hidden) + 1; i++) {
                     for (int j = 0; j < nodeLevelNumber.get(NetworkLevel.Output); j++) {
-                        double currentHiddenWeight = neuralMap.get(NetworkLevel.Hidden).get(i).getOutputWeightAt(j);
-                        double newHiddenWeight = currentHiddenWeight + changeInHiddenWeights.get(i).get(j);
-                        neuralMap.get(NetworkLevel.Hidden).get(i).setOutputWeightAt(j, newHiddenWeight);
+                        if(i < nodeLevelNumber.get(NetworkLevel.Hidden)) {
+                            double currentHiddenWeight = neuralMap.get(NetworkLevel.Hidden).get(i).getOutputWeightAt(j);
+                            double newHiddenWeight = currentHiddenWeight + changeInHiddenWeights.get(i).get(j);
+                            neuralMap.get(NetworkLevel.Hidden).get(i).setOutputWeightAt(j, newHiddenWeight);
+                        } else {
+                            double currentHiddenBiasWeight = biasNode.getOutputWeightAt(j + nodeLevelNumber.get(NetworkLevel.Hidden));
+                            double newHiddenBiasWeight = currentHiddenBiasWeight + changeInHiddenWeights.get(i).get(j);
+                            biasNode.setOutputWeightAt(j + nodeLevelNumber.get(NetworkLevel.Hidden), newHiddenBiasWeight);
+                        }
                     }
                 }
-                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Input); i++) {
+                for (int i = 0; i < nodeLevelNumber.get(NetworkLevel.Input) + 1; i++) {
                     for (int j = 0; j < nodeLevelNumber.get(NetworkLevel.Hidden); j++) {
-                        double currentInputWeight = neuralMap.get(NetworkLevel.Input).get(i).getOutputWeightAt(j);
-                        double newInputWeight = currentInputWeight + changeInInputWeights.get(i).get(j);
-                        neuralMap.get(NetworkLevel.Input).get(i).setOutputWeightAt(j, newInputWeight);
+                        if(i < nodeLevelNumber.get(NetworkLevel.Input)) {
+                            double currentInputWeight = neuralMap.get(NetworkLevel.Input).get(i).getOutputWeightAt(j);
+                            double newInputWeight = currentInputWeight + changeInInputWeights.get(i).get(j);
+                            neuralMap.get(NetworkLevel.Input).get(i).setOutputWeightAt(j, newInputWeight);
+                        } else {
+                            double currentInputBiasWeight = biasNode.getOutputWeightAt(j);
+                            double newInputBiasWeight = currentInputBiasWeight + changeInInputWeights.get(i).get(j);
+                            biasNode.setOutputWeightAt(j, newInputBiasWeight);
+                        }
                     }
                 }
             }
