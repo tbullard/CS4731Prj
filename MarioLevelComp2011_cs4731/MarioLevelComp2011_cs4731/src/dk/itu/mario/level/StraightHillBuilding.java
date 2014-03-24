@@ -19,12 +19,12 @@ public class StraightHillBuilding extends Building {
 
 	@Override
 	public double getWeight() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public double getProfit() {
-		return 4;
+		return 1;
 	}
 
 

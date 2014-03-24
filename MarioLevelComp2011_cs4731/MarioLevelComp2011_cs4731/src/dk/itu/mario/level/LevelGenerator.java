@@ -13,8 +13,8 @@ import optimization.Trainer;
 
 
 public class LevelGenerator {
-	public static final int	MAX_WEIGHT = 100;
-	public static final int	ITERATIONS = 10;
+	public static final double	MAX_WEIGHT = 320;
+	public static final int		ITERATIONS = 10;
 	
 	public static	EvaluationFunction<MyLevel>		evalFn;
 	public static	OptimizationProblem<MyLevel>	optimizationProblem;

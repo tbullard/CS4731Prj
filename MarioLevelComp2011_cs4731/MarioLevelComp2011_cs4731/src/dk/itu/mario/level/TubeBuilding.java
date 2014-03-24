@@ -19,12 +19,12 @@ public class TubeBuilding extends Building {
 
 	@Override
 	public double getWeight() {
-		return 1;
+		return 12;
 	}
 
 	@Override
 	public double getProfit() {
-		return 4;
+		return 9;
 	}
 
 }

@@ -3,9 +3,9 @@ package optimization;
 
 public class KnapsackEvaluationFunction<T> implements EvaluationFunction<T> {
 
-	private int maxWeight;
+	private double maxWeight;
 
-	public KnapsackEvaluationFunction(int maxWeight) {
+	public KnapsackEvaluationFunction(double maxWeight) {
 		this.maxWeight = maxWeight;
 	}
 

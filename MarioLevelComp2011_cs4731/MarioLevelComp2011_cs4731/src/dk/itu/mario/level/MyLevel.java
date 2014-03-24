@@ -47,6 +47,11 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        PlayerStyle playerStyle = PlayerStyle.NEW;
 	        
 	        create(LevelGenerator.create(playerStyle));
+	        double sW = 0, sV = 0;
+	        for(double d: this.getWeights()) sW  += d;
+	        for(double d: this.getProfits()) sV  += d;
+	        for(Building d: this.buildings) System.out.println(d);
+	        System.out.println(sW+","+sV);
 	        fixWalls();
 	    }
 
@@ -96,7 +101,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        lastSeed = seed;
 	        
 	        for(int i =10; i < width-10; i+=10) {
-	        	switch((int)(seed)%10) {
+	        	switch(random.nextInt(10)) {
 	        	case 0:
 	        	case 1:
 	        		this.buildings.add(new StraightBuilding(i,10,height-1));

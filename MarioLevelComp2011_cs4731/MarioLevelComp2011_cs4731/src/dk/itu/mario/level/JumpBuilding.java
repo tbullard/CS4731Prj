@@ -19,12 +19,12 @@ public class JumpBuilding extends Building {
 
 	@Override
 	public double getWeight() {
-		return 1;
+		return 5;
 	}
 
 	@Override
 	public double getProfit() {
-		return 2;
+		return 3;
 	}
 
 

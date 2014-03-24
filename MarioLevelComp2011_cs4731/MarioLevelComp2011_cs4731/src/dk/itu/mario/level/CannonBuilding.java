@@ -19,12 +19,12 @@ public class CannonBuilding extends Building {
 
 	@Override
 	public double getWeight() {
-		return 1;
+		return 15;
 	}
 
 	@Override
 	public double getProfit() {
-		return 2;
+		return 11;
 	}
 
 }
