@@ -27,4 +27,16 @@ public class TubeBuilding extends Building {
 		return 9;
 	}
 
+	@Override
+	public double[] getWeights() {
+		double[] result = {3,3,3,3};
+		return result;
+	}
+
+	@Override
+	public double[] getProfits() {
+		double[] result = {9,9,9,9};
+		return result;
+	}
+
 }

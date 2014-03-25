@@ -1,0 +1,10 @@
+package optimization;
+
+public abstract class OptimizationAlgorithm<T> {
+	protected OptimizationProblem<T> optimizationProblem;
+	
+	public abstract Individual<T> getOptimal();
+
+	public abstract double train();
+
+}

@@ -45,13 +45,16 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        this(width, height);
 	        //TODO: getPlayerStyle from playerMetrics
 	        PlayerStyle playerStyle = PlayerStyle.NEW;
+	        double[] ratios = {.25,.25,.25,.25};
 	        
-	        create(LevelGenerator.create(playerStyle));
-	        double sW = 0, sV = 0;
-	        for(double d: this.getWeights()) sW  += d;
-	        for(double d: this.getProfits()) sV  += d;
+	        create(LevelGenerator.create(playerStyle, ratios));
+	        double[] sW = {0,0,0,0}, sV = {0,0,0,0};
+	        for(int i=0;i < 4;i++) {
+	        	for(double d: this.getWeight()) sW[i]  += d;
+	        	for(double d: this.getProfit()) sV[i]  += d;
+	        }
 	        for(Building d: this.buildings) System.out.println(d);
-	        System.out.println(sW+","+sV);
+	        for(int i=0;i < 4;i++) System.out.println(sW[i]+","+sV[i]);
 	        fixWalls();
 	    }
 
@@ -86,7 +89,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 //			this.COINS			= level.COINS; 
 //			this.type			= level.type;
 //			this.difficulty		= level.difficulty;
-			
+
 			this.buildings.add(new StraightBuilding(0,10,height-1));
 			for(Building building : level.buildings) this.buildings.add(building.clone());
 	        this.buildings.add(new EndBuilding(width-10,width,height-1));
@@ -682,7 +685,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 
 
 		@Override
-		public double[] getWeights() {
+		public double[] getWeight() {
 			double[] weights = new double[this.buildings.size()];
 			for(int i=0; i < weights.length; i++) {
 				weights[i] = this.buildings.get(i).getWeight();
@@ -692,10 +695,30 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 
 
 		@Override
-		public double[] getProfits() {
+		public double[] getProfit() {
 			double[] profits = new double[this.buildings.size()];
 			for(int i=0; i < profits.length; i++) {
 				profits[i] = this.buildings.get(i).getProfit();
+			}
+			return profits;
+		}
+
+
+		@Override
+		public double[][] getWeights() {
+			double[][] weights = new double[this.buildings.size()][];
+			for(int i=0; i < weights.length; i++) {
+				weights[i] = this.buildings.get(i).getWeights();
+			}
+			return weights;
+		}
+
+
+		@Override
+		public double[][] getProfits() {
+			double[][] profits = new double[this.buildings.size()][];
+			for(int i=0; i < profits.length; i++) {
+				profits[i] = this.buildings.get(i).getProfits();
 			}
 			return profits;
 		}

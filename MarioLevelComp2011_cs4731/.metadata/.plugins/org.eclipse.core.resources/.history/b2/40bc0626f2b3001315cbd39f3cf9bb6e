@@ -1,0 +1,34 @@
+package optimization;
+
+public class MultiKnapsackEvaluationFunction<T> implements EvaluationFunction<T> {
+
+	private double maxWeight;
+	private double partitionWeights;
+	private int knapsacks;
+
+	public MultiKnapsackEvaluationFunction(double maxWeight, double[] ratios) {
+		this.maxWeight = maxWeight;
+		this.knapsacks = ratios.length;
+		for(int i=0; i < ratios.length; i++) this.partitionWeights = maxWeight * ratios[i];
+	}
+
+	@Override
+	public double value(Individual<T> individual) {
+		double value = 0.0;
+		double weight[] = new double[knapsacks];
+		
+		double[] variables		= individual.getVariables();
+		double[][] weights		= individual.getWeights();
+		double[][] profits		= individual.getProfits();
+		
+		for(int knapsack = 0; knapsack < knapsacks; knapsack++)
+			for(int i =0; i < variables.length; i++)	{
+				weight[knapsack] += weights[knapsack][i] * variables[i];
+				value	+= profits[knapsack][i] * variables[i];
+			}
+		
+		for(int knapsack = 0; knapsack < knapsacks; knapsack++) 
+			if(weight[knapsack] > maxWeight) return Double.MIN_VALUE;
+		else return value;
+	}
+}

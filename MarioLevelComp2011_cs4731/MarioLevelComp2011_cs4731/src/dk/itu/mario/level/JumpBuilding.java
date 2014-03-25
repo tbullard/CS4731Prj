@@ -27,5 +27,17 @@ public class JumpBuilding extends Building {
 		return 3;
 	}
 
+	@Override
+	public double[] getWeights() {
+		double[] result = {1.25,1.25,1.25,1.25};
+		return result;
+	}
+
+	@Override
+	public double[] getProfits() {
+		double[] result = {3,3,3,3};
+		return result;
+	}
+
 
 }

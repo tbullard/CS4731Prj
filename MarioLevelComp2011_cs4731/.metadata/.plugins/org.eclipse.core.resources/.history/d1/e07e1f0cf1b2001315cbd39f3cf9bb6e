@@ -1,0 +1,19 @@
+package optimization;
+
+
+public class KnapsackEvaluationFunction<T> implements EvaluationFunction<T> {
+
+	private int maxWeight;
+
+	public KnapsackEvaluationFunction(int[] copies, double[] profits, double[] weights, int maxWeight) {
+		this.maxWeight = maxWeight;
+	}
+
+	@Override
+	public double value(Individual<T> individual) {
+		double value = 0;
+		
+		
+		return value;
+	}
+}

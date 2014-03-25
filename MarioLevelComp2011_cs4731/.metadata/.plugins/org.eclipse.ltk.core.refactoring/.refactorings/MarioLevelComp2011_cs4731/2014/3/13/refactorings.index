@@ -3,3 +3,8 @@
 1395621599964	Move compilation units
 1395621679240	Move compilation units
 1395621685310	Delete element
+1395732250656	Rename type 'KnapsackEvaluationFunction'
+1395732280222	Extract interface 'KnapsackEvaluationFunction'
+1395732316310	Delete element
+1395733364189	Rename method 'getWeights'
+1395733370054	Rename method 'getProfits'

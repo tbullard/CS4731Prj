@@ -3465,3 +3465,37 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.core 4 0 2014-03-25 01:21:33.592
+!MESSAGE An exception occurred during push on URI https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+!STACK 0
+org.eclipse.jgit.api.errors.TransportException: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:160)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:221)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI.execute(PushOperationUI.java:164)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI$1.run(PushOperationUI.java:226)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: org.eclipse.jgit.errors.NoRemoteRepositoryException: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:468)
+	at org.eclipse.jgit.transport.TransportHttp.openPush(TransportHttp.java:398)
+	at org.eclipse.jgit.transport.PushProcess.execute(PushProcess.java:154)
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1173)
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:156)
+	... 4 more
+
+!ENTRY org.eclipse.egit.core 4 0 2014-03-25 01:21:50.728
+!MESSAGE An exception occurred during push on URI https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+!STACK 0
+org.eclipse.jgit.api.errors.TransportException: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:160)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:221)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI.execute(PushOperationUI.java:164)
+	at org.eclipse.egit.ui.internal.push.PushOperationUI$1.run(PushOperationUI.java:226)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: org.eclipse.jgit.errors.NoRemoteRepositoryException: https://github.com/tbullard/CS4731Prj: https://github.com/tbullard/CS4731Prj/info/refs?service=git-receive-pack not found
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:468)
+	at org.eclipse.jgit.transport.TransportHttp.openPush(TransportHttp.java:398)
+	at org.eclipse.jgit.transport.PushProcess.execute(PushProcess.java:154)
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1173)
+	at org.eclipse.jgit.api.PushCommand.call(PushCommand.java:156)
+	... 4 more

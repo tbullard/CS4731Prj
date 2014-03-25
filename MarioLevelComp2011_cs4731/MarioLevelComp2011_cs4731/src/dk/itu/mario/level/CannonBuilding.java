@@ -27,4 +27,16 @@ public class CannonBuilding extends Building {
 		return 11;
 	}
 
+	@Override
+	public double[] getWeights() {
+		double[] result = {3.75,3.75,3.75,3.75};
+		return result;
+	}
+
+	@Override
+	public double[] getProfits() {
+		double[] result = {11,11,11,11};
+		return result;
+	}
+
 }

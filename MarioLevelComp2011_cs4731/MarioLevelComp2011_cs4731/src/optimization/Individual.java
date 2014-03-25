@@ -6,8 +6,9 @@ public interface Individual<T> {
 
 	public double[] getVariables();
 
-	public double[] getWeights();
+	public double[] getWeight();
+	public double[] getProfit();
 
-	public double[] getProfits();
-
+	public double[][] getWeights();
+	public double[][] getProfits();
 }

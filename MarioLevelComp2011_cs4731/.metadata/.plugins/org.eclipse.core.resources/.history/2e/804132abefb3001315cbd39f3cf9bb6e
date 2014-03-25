@@ -1,0 +1,27 @@
+package optimization;
+
+public class MultiKnapsackEvaluationFunction<T>  implements EvaluationFunction<T> {
+
+	private double maxWeight;
+
+	public MultiKnapsackEvaluationFunction(double maxWeight) {
+		this.maxWeight = maxWeight;
+	}
+
+	@Override
+	public double value(Individual<T> individual) {
+		double value = 0.0;
+		double weight = 0.0;
+		double[] variables	= individual.getVariables();
+		double[] weights	= individual.getWeights();
+		double[] profits	= individual.getProfits();
+		
+		for(int i =0; i < variables.length; i++)	{
+			weight	+= weights[i] * variables[i];
+			value	+= profits[i] * variables[i];
+		}
+		
+		if(weight > maxWeight) return Double.MIN_VALUE;
+		else return value;
+	}
+}

@@ -5,7 +5,8 @@ import optimization.CrossoverFunction;
 import optimization.EvaluationFunction;
 import optimization.GeneticAlgorithm;
 import optimization.GeneticAlgorithmProblem;
-import optimization.KnapsackEvaluationFunction;
+import optimization.MultiKnapsackEvaluationFunction;
+import optimization.StandardKnapsackEvaluationFunction;
 import optimization.MutationFunction;
 import optimization.OptimizationAlgorithm;
 import optimization.OptimizationProblem;
@@ -24,7 +25,7 @@ public class LevelGenerator {
 	
 	private static	LevelGenerator					singleton;
 	
-	private LevelGenerator() {
+	private LevelGenerator(double[] ratios) {
 		
 		int		population		= 200;
 		double	replacementRate	= 0.60, 
@@ -32,19 +33,20 @@ public class LevelGenerator {
 		
 		mutationFn	= new LevelMutationFunction();
 		crossoverFn = new LevelCrossoverFunction();
-		evalFn		= new KnapsackEvaluationFunction<MyLevel>(MAX_WEIGHT);
+//		evalFn		= new StandardKnapsackEvaluationFunction<MyLevel>(MAX_WEIGHT);
+		evalFn		= new MultiKnapsackEvaluationFunction<MyLevel>(MAX_WEIGHT,ratios);
 
 		optimizationProblem		= new GeneticAlgorithmProblem<MyLevel>(evalFn,mutationFn,crossoverFn);
 		optimizationAlgorithm	= new GeneticAlgorithm<MyLevel>(population, replacementRate, mutationRate, optimizationProblem);
 	}
 	
-	static void init(){
+	static void init(double[] ratios){
 		if(singleton != null) return;
-		else singleton = new LevelGenerator();
+		else singleton = new LevelGenerator(ratios);
 	}
 	
-	public static MyLevel create(PlayerStyle style) {
-		init();
+	public static MyLevel create(PlayerStyle style, double[] ratios) {
+		init(ratios);
 		
 		Trainer.train(optimizationAlgorithm,ITERATIONS);
 		MyLevel result = (optimizationAlgorithm.getOptimal().getData());
