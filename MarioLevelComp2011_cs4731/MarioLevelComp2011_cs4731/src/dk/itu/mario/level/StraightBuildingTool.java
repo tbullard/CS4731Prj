@@ -47,5 +47,4 @@ public class StraightBuildingTool extends Tool {
 	public void setSafe(boolean safe) {
 		this.isSafe = safe;
 	}
-
 }
