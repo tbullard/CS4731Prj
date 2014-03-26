@@ -9,6 +9,7 @@ public abstract class Building {
 	public int	start;
 	public int	lenght;
 	public int	floor;
+	public MyLevel level;
 	
 	Building(int start, int lenght, int floor) {
 		this.start 	= start;

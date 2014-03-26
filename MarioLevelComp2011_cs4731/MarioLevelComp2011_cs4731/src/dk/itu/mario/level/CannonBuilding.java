@@ -35,14 +35,14 @@ public class CannonBuilding extends Building {
 
 	@Override
 	public double[] getProfits() {
-		double[] result = {11,11,11,11};
+		double[] result = {5,33,22,0};
 		return result;
 	}
 
 	@Override
 	public void mutateParameters() {
-		// TODO Auto-generated method stub
-		
+		int[] parameters = {floor - MyLevel.random.nextInt(4) - 1,start + 1 + MyLevel.random.nextInt(4)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 }

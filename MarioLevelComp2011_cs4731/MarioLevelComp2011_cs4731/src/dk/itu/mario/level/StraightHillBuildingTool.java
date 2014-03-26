@@ -6,8 +6,15 @@ public class StraightHillBuildingTool extends Tool {
 	private int l;
 	private int xxo;
 	private boolean hasEnemies;
+	private boolean hasDecoration;
 
 	public int build(int start, int length, int floor, MyLevel level) {
+		if(firstTime) {
+			int len = MyLevel.random.nextInt(5) + 3;
+			int[] parameters = {len,MyLevel.random.nextInt(MyLevel.length - len - 2) + start + 1, MyLevel.random.nextInt(10)%3, MyLevel.random.nextInt(4)};
+			copyParamaters(parameters);
+		}
+		
         for (int x = start; x < start + length; x++)
         {
             for (int y = 0; y < level.height; y++)
@@ -19,8 +26,6 @@ public class StraightHillBuildingTool extends Tool {
             }
         }
 
-        if(this.hasEnemies) level.addEnemyLine(start + 1, start + length - 1, floor - 1);
-
         int h = floor;
 
         boolean keepGoing = true;
@@ -29,7 +34,7 @@ public class StraightHillBuildingTool extends Tool {
         
         while (keepGoing)
         {
-            h += - 2 - level.random.nextInt(3);
+            h += - 2 - MyLevel.random.nextInt(3);
 
             if (h <= 0)
             {
@@ -37,8 +42,6 @@ public class StraightHillBuildingTool extends Tool {
             }
             else
             {
-                this.l = level.random.nextInt(5) + 3;
-                this.xxo = level.random.nextInt(length - this.l - 2) + start + 1;
 
                 if (occupied[this.xxo - start] || occupied[this.xxo - start + this.l] || occupied[this.xxo - start - 1] || occupied[this.xxo - start + this.l + 1])
                 {
@@ -49,7 +52,7 @@ public class StraightHillBuildingTool extends Tool {
                     occupied[this.xxo - start] = true;
                     occupied[this.xxo - start + this.l] = true;
                     if(this.hasEnemies) level.addEnemyLine(this.xxo, this.xxo + this.l, h - 1);
-                    if (level.random.nextInt(4) == 0)
+                    if (this.hasDecoration)
                     {
                     	level.decorate(this.xxo - 1, this.xxo + this.l + 1, h);
                         keepGoing = false;
@@ -83,7 +86,7 @@ public class StraightHillBuildingTool extends Tool {
 	}
 
 	public Tool clone() {
-		int[] paramaters = {this.l,this.xxo,(this.hasEnemies?0:1)};
+		int[] paramaters = {this.l,this.xxo,(this.hasEnemies?0:1),(this.hasDecoration?0:1)};
 		Tool tool = new StraightHillBuildingTool();
 		tool.copyParamaters(paramaters);
 		return (tool);
@@ -91,9 +94,10 @@ public class StraightHillBuildingTool extends Tool {
 
 	@Override
 	public void copyParamaters(int[] paramaters) {
-		this.l			= paramaters[0];
-		this.xxo		= paramaters[1];
-		this.hasEnemies	= paramaters[2] == 0;
+		this.l				= paramaters[0];
+		this.xxo			= paramaters[1];
+		this.hasEnemies		= paramaters[2] == 0;
+		this.hasDecoration	= paramaters[3] == 0;
 	}
 
 }

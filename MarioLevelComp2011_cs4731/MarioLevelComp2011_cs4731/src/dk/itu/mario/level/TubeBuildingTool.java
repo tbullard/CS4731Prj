@@ -9,18 +9,18 @@ public class TubeBuildingTool extends Tool {
 
 	@Override
 	public int build(int start, int length, int floor, MyLevel level) {
-        this.tubeHeight = floor - level.random.nextInt(2) - 2;
-        int xTube = start + 1 + level.random.nextInt(4);
+        this.tubeHeight = floor - MyLevel.random.nextInt(2) - 2;
+        int xTube = start + 1 + MyLevel.random.nextInt(4);
         for (int x = start; x < start + length; x++)
         {
             if (x > xTube + 1)
             {
-                xTube += 3 + level.random.nextInt(4);
-                this.tubeHeight = floor - level.random.nextInt(2) - 2;
+                xTube += 3 + MyLevel.random.nextInt(4);
+                this.tubeHeight = floor - MyLevel.random.nextInt(2) - 2;
             }
             if (xTube >= start + length - 2) xTube += 10;
 
-            if (x == xTube && level.random.nextInt(11) < level.difficulty + 1)
+            if (x == xTube && MyLevel.random.nextInt(11) < level.difficulty + 1)
             {
             	level.setSpriteTemplate(x, this.tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
             	level.ENEMIES++;

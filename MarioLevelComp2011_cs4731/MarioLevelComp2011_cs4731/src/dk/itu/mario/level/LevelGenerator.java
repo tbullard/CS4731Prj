@@ -27,7 +27,7 @@ public class LevelGenerator {
 	
 	private LevelGenerator(double[] ratios) {
 		
-		int		population		= 200;
+		int		population		= 1000;
 		double	replacementRate	= 0.60, 
 				mutationRate	= 0.20;
 		
