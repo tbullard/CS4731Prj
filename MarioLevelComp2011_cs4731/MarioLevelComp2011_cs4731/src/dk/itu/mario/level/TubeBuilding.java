@@ -35,7 +35,7 @@ public class TubeBuilding extends Building {
 
 	@Override
 	public double[] getProfits() {
-		double[] result = {9,9,9,9};
+		double[] result = {9,9,3,9};
 		return result;
 	}
 

@@ -39,6 +39,12 @@ public class MultiKnapsackEvaluationFunction<T> implements EvaluationFunction<T>
 					overWeight[knapsack] = weight[knapsack] > partitionWeights[knapsack];
 				}
 			}
+//			weight[knapsack] = 0;
+//			for(int i =0; i < variables.length; i++)	{
+//				weight[knapsack] += weights[i][knapsack] * variables[i];
+//				value	+= profits[i][knapsack] * variables[i]* (overWeight[knapsack] ? -1 : 1);
+//				overWeight[knapsack] = weight[knapsack] > partitionWeights[knapsack];
+//			}
 		}
 		
 		int constraintsUnsatisfied = 0;

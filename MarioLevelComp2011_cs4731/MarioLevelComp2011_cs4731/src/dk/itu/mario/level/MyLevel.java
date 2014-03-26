@@ -62,14 +62,14 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        	double[] p = d.getProfits();
 	        	for(int j=0;j < 4;j++) {
 	        		sW[j] +=w[j];
-	        		System.out.print(d.getWeights()[j]+",");
+//	        		System.out.print(d.getWeights()[j]+",");
 	        	}
-	        	System.out.println("");
+//	        	System.out.println("");
 	        	for(int j=0;j < 4;j++) {
 	        		sV[j] += p[j];
-	        		System.out.print(d.getProfits()[j]+",");
+//	        		System.out.print(d.getProfits()[j]+",");
 	        	}
-	        	System.out.println("");
+//	        	System.out.println("");
 	        }
 	        System.out.println("MaxWeight,Weight,Value");
 	        for(int i=0;i < 4;i++) System.out.println(MultiKnapsackEvaluationFunction.P[i]+","+sW[i]+","+sV[i]);
@@ -469,6 +469,31 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 		public void createMutations() {
 			for(Building building: buildings) {
 				building.mutate(random, height);
+
+				if(MyLevel.random.nextDouble() < 0.4) building = mutateBuilding(building);
 			}
+		}
+
+
+		private Building mutateBuilding(Building building) {
+			switch(random.nextInt(10)) {
+        	case 0:
+        	case 1:
+        		return new StraightBuilding(building.start,building.lenght,building.floor);
+        	case 2:
+        	case 3:
+        		return new StraightHillBuilding(building.start,building.lenght,building.floor);
+        	case 4:
+        	case 5:
+        		return new CannonBuilding(building.start,building.lenght,building.floor);
+        	case 6:
+        	case 7:
+        		return new TubeBuilding(building.start,building.lenght,building.floor);
+        	case 8:
+        	case 9:
+        		return new JumpBuilding(building.start,building.lenght,building.floor);
+        	default:
+        		return null;
+        	}
 		}
 }

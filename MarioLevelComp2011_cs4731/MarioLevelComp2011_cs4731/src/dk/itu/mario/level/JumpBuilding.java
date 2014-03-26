@@ -35,7 +35,7 @@ public class JumpBuilding extends Building {
 
 	@Override
 	public double[] getProfits() {
-		double[] result = {6,3,6,3};
+		double[] result = {6,3,0,3};
 		return result;
 	}
 
