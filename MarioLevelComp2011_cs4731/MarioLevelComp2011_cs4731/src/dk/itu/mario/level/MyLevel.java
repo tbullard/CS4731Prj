@@ -54,6 +54,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        	for(double d: this.getProfit()) sV[i]  += d;
 	        }
 	        for(Building d: this.buildings) System.out.println(d);
+	        System.out.println("Weight,Value");
 	        for(int i=0;i < 4;i++) System.out.println(sW[i]+","+sV[i]);
 	        fixWalls();
 	    }
