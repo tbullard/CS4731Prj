@@ -41,8 +41,9 @@ public class JumpBuilding extends Building {
 
 	@Override
 	public void mutateParameters() {
-		// TODO Auto-generated method stub
-		
+        int jumpLen = MyLevel.random.nextInt(99)%3 + 1;
+		int[] parameters = {jumpLen,start + 1 + MyLevel.random.nextInt(MyLevel.length-jumpLen-1),MyLevel.random.nextInt(3)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 

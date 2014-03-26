@@ -8,14 +8,16 @@ public class CannonBuildingTool extends Tool {
 	
 	@Override
 	public int build(int start, int length, int floor, MyLevel level) {
-        this.xCannon = start + 1 + level.random.nextInt(4);
-        this.cannonHeight = floor - level.random.nextInt(4) - 1;
-        
+		if(firstTime) {
+			int[] parameters = {floor - MyLevel.random.nextInt(4) - 1,start + 1 + MyLevel.random.nextInt(4)};
+			copyParamaters(parameters);
+		}
+		
         for (int x = start; x < start + length; x++)
         {
             if (x > this.xCannon)
             {
-            	this.xCannon += 2 + level.random.nextInt(4);
+            	this.xCannon += 2 + MyLevel.random.nextInt(4);
             }
             if (this.xCannon == start + length - 1) this.xCannon += 10;
 

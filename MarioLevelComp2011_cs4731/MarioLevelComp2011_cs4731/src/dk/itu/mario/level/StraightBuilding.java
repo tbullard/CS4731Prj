@@ -6,6 +6,13 @@ public class StraightBuilding extends Building {
 		super(start,length,floor);
 		buildingTool = new StraightBuildingTool();
 	}
+	
+	public StraightBuilding(int start, int length, int floor, boolean safe) {
+		super(start,length,floor);
+		buildingTool = new StraightBuildingTool();
+		buildingTool.firstTime = false;
+		((StraightBuildingTool) buildingTool).setSafe(safe);
+	}
 
 	public Building getCopy() {
 		return new StraightBuilding(this.start,this.lenght,this.floor);
@@ -40,8 +47,8 @@ public class StraightBuilding extends Building {
 
 	@Override
 	public void mutateParameters() {
-		// TODO Auto-generated method stub
-		
+		int[] parameters = {MyLevel.random.nextInt(3)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 }

@@ -8,6 +8,10 @@ public class StraightBuildingTool extends Tool {
 	private boolean isSafe;
 
 	public int build(int start, int length, int floor, MyLevel level){
+		if(firstTime) {
+			int[] parameters = {MyLevel.random.nextInt(3)};
+			copyParamaters(parameters);
+		}
 	    //runs from the specified x position to the length of the segment
 	    for (int x = start; x < start + length; x++)
 	    {
@@ -19,7 +23,7 @@ public class StraightBuildingTool extends Tool {
 	            }
 	        }
 	    }
-	    if(this.isSafe) level.decorate(start, start + length, floor);
+	    if(!this.isSafe) level.decorate(start, start + length, floor);
 	    return length;
 	}
 
@@ -33,6 +37,10 @@ public class StraightBuildingTool extends Tool {
 	@Override
 	public void copyParamaters(int[] parameters) {
 		this.isSafe = parameters[0] == 0;
+	}
+	
+	public void setSafe(boolean safe) {
+		this.isSafe = safe;
 	}
 
 }

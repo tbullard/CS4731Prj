@@ -25,13 +25,14 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	private static Random levelSeedRandom = new Random();
 	public static long lastSeed;
 	
-	public Random random;
+	public static Random random;
 	  
 	public int difficulty;
 	private int type;
 	public  int gaps;
 		
 	static int count = 0;
+	public static int length = 10;
 
 		public MyLevel(int width, int height)
 	    {
@@ -91,7 +92,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 //			this.type			= level.type;
 //			this.difficulty		= level.difficulty;
 
-			this.buildings.add(new StraightBuilding(0,10,height-1));
+			this.buildings.add(new StraightBuilding(0,10,height-1,true));
 			for(Building building : level.buildings) this.buildings.add(building.clone());
 	        this.buildings.add(new EndBuilding(width-10,width,height-1));
 	        for(Building building : buildings) building.build(this);

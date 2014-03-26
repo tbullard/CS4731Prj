@@ -8,19 +8,25 @@ public class JumpBuildingTool extends Tool {
 	private boolean hasStairs;
 
 	public int build(int start, int length, int floor, MyLevel level) {
+    	int end = (start + length);
+    	
+		if(firstTime) {
+//	        jumpStart = start + 1 + MyLevel.random.nextInt(length-this.jumpLength-1);
+//			hasStairs = MyLevel.random.nextInt(3) == 0;
+	        int jumpLen = MyLevel.random.nextInt(99)%3 + 1;
+			int[] parameters = {jumpLen,start + 1 + MyLevel.random.nextInt(length-jumpLen-1),MyLevel.random.nextInt(3)};
+			copyParamaters(parameters);
+		}
+		
 		level.gaps++;
     	//jl: jump length
     	//js: the number of blocks that are available at either side for free
-    	int end = (start + length);
-        this.jumpLength = level.random.nextInt(99)%3 + 1;
-        this.jumpStart = start + 1 + level.random.nextInt(length-this.jumpLength-1);
 
         int startHole = this.jumpStart;
 		int endHole = this.jumpStart + this.jumpLength;
 		
-		this.hasStairs = level.random.nextInt(3) == 0;
         int maxStairHeight = Math.min(start - startHole-1, endHole - end-1);
-    	int stairHeight = (level.random.nextInt(3) + 1) % maxStairHeight;
+    	int stairHeight = (MyLevel.random.nextInt(3) + 1) % maxStairHeight;
     	
         this.hasStairs = true;
     	stairHeight = 3;

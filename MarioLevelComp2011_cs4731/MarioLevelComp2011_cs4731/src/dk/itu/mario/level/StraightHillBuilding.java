@@ -41,8 +41,9 @@ public class StraightHillBuilding extends Building {
 
 	@Override
 	public void mutateParameters() {
-		// TODO Auto-generated method stub
-		
+		int len = MyLevel.random.nextInt(5) + 3;
+		int[] parameters = {len,MyLevel.random.nextInt(MyLevel.length - len - 2) + start + 1, MyLevel.random.nextInt(10)%3};
+		buildingTool.copyParamaters(parameters);
 	}
 
 

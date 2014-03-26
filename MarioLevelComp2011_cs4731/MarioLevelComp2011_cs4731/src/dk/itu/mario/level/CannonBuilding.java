@@ -41,8 +41,8 @@ public class CannonBuilding extends Building {
 
 	@Override
 	public void mutateParameters() {
-		// TODO Auto-generated method stub
-		
+		int[] parameters = {floor - MyLevel.random.nextInt(4) - 1,start + 1 + MyLevel.random.nextInt(4)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 }

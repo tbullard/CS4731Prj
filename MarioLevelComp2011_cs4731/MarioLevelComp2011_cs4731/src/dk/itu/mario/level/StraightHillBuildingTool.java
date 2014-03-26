@@ -8,6 +8,12 @@ public class StraightHillBuildingTool extends Tool {
 	private boolean hasEnemies;
 
 	public int build(int start, int length, int floor, MyLevel level) {
+		if(firstTime) {
+			int len = MyLevel.random.nextInt(5) + 3;
+			int[] parameters = {len,MyLevel.random.nextInt(MyLevel.length - len - 2) + start + 1, MyLevel.random.nextInt(10)%3};
+			copyParamaters(parameters);
+		}
+		
         for (int x = start; x < start + length; x++)
         {
             for (int y = 0; y < level.height; y++)
@@ -29,7 +35,7 @@ public class StraightHillBuildingTool extends Tool {
         
         while (keepGoing)
         {
-            h += - 2 - level.random.nextInt(3);
+            h += - 2 - MyLevel.random.nextInt(3);
 
             if (h <= 0)
             {
@@ -37,8 +43,6 @@ public class StraightHillBuildingTool extends Tool {
             }
             else
             {
-                this.l = level.random.nextInt(5) + 3;
-                this.xxo = level.random.nextInt(length - this.l - 2) + start + 1;
 
                 if (occupied[this.xxo - start] || occupied[this.xxo - start + this.l] || occupied[this.xxo - start - 1] || occupied[this.xxo - start + this.l + 1])
                 {
@@ -49,7 +53,7 @@ public class StraightHillBuildingTool extends Tool {
                     occupied[this.xxo - start] = true;
                     occupied[this.xxo - start + this.l] = true;
                     if(this.hasEnemies) level.addEnemyLine(this.xxo, this.xxo + this.l, h - 1);
-                    if (level.random.nextInt(4) == 0)
+                    if (MyLevel.random.nextInt(4) == 0)
                     {
                     	level.decorate(this.xxo - 1, this.xxo + this.l + 1, h);
                         keepGoing = false;
