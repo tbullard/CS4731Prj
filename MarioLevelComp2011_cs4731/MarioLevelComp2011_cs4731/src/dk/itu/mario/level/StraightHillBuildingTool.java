@@ -3,6 +3,10 @@ package dk.itu.mario.level;
 
 public class StraightHillBuildingTool extends Tool {
 
+	private int l;
+	private int xxo;
+	private boolean hasEnemies;
+
 	public int build(int start, int length, int floor, MyLevel level) {
         for (int x = start; x < start + length; x++)
         {
@@ -15,7 +19,7 @@ public class StraightHillBuildingTool extends Tool {
             }
         }
 
-//        addEnemyLine(xo + 1, xo + length - 1, floor - 1);
+        if(this.hasEnemies) level.addEnemyLine(start + 1, start + length - 1, floor - 1);
 
         int h = floor;
 
@@ -33,31 +37,30 @@ public class StraightHillBuildingTool extends Tool {
             }
             else
             {
-                int l = level.random.nextInt(5) + 3;
-//                int xxo = level.random.nextInt(length - l - 2) + start + 1;
-                int xxo = level.random.nextInt(length - l - 2) + start + 1;
+                this.l = level.random.nextInt(5) + 3;
+                this.xxo = level.random.nextInt(length - this.l - 2) + start + 1;
 
-                if (occupied[xxo - start] || occupied[xxo - start + l] || occupied[xxo - start - 1] || occupied[xxo - start + l + 1])
+                if (occupied[this.xxo - start] || occupied[this.xxo - start + this.l] || occupied[this.xxo - start - 1] || occupied[this.xxo - start + this.l + 1])
                 {
                     keepGoing = false;
                 }
                 else
                 {
-                    occupied[xxo - start] = true;
-                    occupied[xxo - start + l] = true;
-                    level.addEnemyLine(xxo, xxo + l, h - 1);
+                    occupied[this.xxo - start] = true;
+                    occupied[this.xxo - start + this.l] = true;
+                    if(this.hasEnemies) level.addEnemyLine(this.xxo, this.xxo + this.l, h - 1);
                     if (level.random.nextInt(4) == 0)
                     {
-                    	level.decorate(xxo - 1, xxo + l + 1, h);
+                    	level.decorate(this.xxo - 1, this.xxo + this.l + 1, h);
                         keepGoing = false;
                     }
-                    for (int x = xxo; x < xxo + l; x++)
+                    for (int x = this.xxo; x < this.xxo + this.l; x++)
                     {
                         for (int y = h; y < floor; y++)
                         {
                             int xx = 5;
-                            if (x == xxo) xx = 4;
-                            if (x == xxo + l - 1) xx = 6;
+                            if (x == this.xxo) xx = 4;
+                            if (x == this.xxo + this.l - 1) xx = 6;
                             int yy = 9;
                             if (y == h) yy = 8;
 
@@ -80,7 +83,17 @@ public class StraightHillBuildingTool extends Tool {
 	}
 
 	public Tool clone() {
-		return new StraightHillBuildingTool();
+		int[] paramaters = {this.l,this.xxo,(this.hasEnemies?0:1)};
+		Tool tool = new StraightHillBuildingTool();
+		tool.copyParamaters(paramaters);
+		return (tool);
+	}
+
+	@Override
+	public void copyParamaters(int[] paramaters) {
+		this.l			= paramaters[0];
+		this.xxo		= paramaters[1];
+		this.hasEnemies	= paramaters[2] == 0;
 	}
 
 }

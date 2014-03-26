@@ -39,4 +39,7 @@ public class EndBuilding extends Building {
 		return result;
 	}
 
+	@Override
+	public void mutateParameters() {}
+
 }

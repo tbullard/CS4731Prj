@@ -1,5 +1,7 @@
 package dk.itu.mario.level;
 
+import java.util.Random;
+
 
 
 public abstract class Building {
@@ -29,4 +31,17 @@ public abstract class Building {
 
 	public abstract double[] getWeights();
 	public abstract double[] getProfits();
+
+	public abstract void mutateParameters();
+//	public  void mutateParameters() {}
+
+	public void mutate(Random random, int height) {
+		mutateFloor(random, height);
+		mutateParameters();
+	}
+
+	private void mutateFloor(Random random, int height) {
+		this.floor = Math.min(this.floor + random.nextInt(3) - 1,height - 1);
+	}
+		
 }

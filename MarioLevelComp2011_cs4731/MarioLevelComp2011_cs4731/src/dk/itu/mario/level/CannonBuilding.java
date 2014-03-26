@@ -39,4 +39,10 @@ public class CannonBuilding extends Building {
 		return result;
 	}
 
+	@Override
+	public void mutateParameters() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

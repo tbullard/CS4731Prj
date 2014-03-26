@@ -5,22 +5,24 @@ import dk.itu.mario.engine.sprites.SpriteTemplate;
 
 public class TubeBuildingTool extends Tool {
 
+	private int tubeHeight;
+
 	@Override
 	public int build(int start, int length, int floor, MyLevel level) {
+        this.tubeHeight = floor - level.random.nextInt(2) - 2;
         int xTube = start + 1 + level.random.nextInt(4);
-        int tubeHeight = floor - level.random.nextInt(2) - 2;
         for (int x = start; x < start + length; x++)
         {
             if (x > xTube + 1)
             {
                 xTube += 3 + level.random.nextInt(4);
-                tubeHeight = floor - level.random.nextInt(2) - 2;
+                this.tubeHeight = floor - level.random.nextInt(2) - 2;
             }
             if (xTube >= start + length - 2) xTube += 10;
 
             if (x == xTube && level.random.nextInt(11) < level.difficulty + 1)
             {
-            	level.setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
+            	level.setSpriteTemplate(x, this.tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
             	level.ENEMIES++;
             }
 
@@ -33,11 +35,11 @@ public class TubeBuildingTool extends Tool {
                 }
                 else
                 {
-                    if ((x == xTube || x == xTube + 1) && y >= tubeHeight)
+                    if ((x == xTube || x == xTube + 1) && y >= this.tubeHeight)
                     {
                         int xPic = 10 + x - xTube;
 
-                        if (y == tubeHeight)
+                        if (y == this.tubeHeight)
                         {
                         	//tube top
                         	level.setBlock(x, y, (byte) (xPic + 0 * 16));
@@ -57,7 +59,15 @@ public class TubeBuildingTool extends Tool {
 
 	@Override
 	public Tool clone() {
-		return new TubeBuildingTool();
+		int[] paramaters = {this.tubeHeight};
+		Tool tool = new TubeBuildingTool();
+		tool.copyParamaters(paramaters);
+		return (tool);
+	}
+
+	@Override
+	public void copyParamaters(int[] paramaters) {
+		this.tubeHeight = paramaters[0];
 	}
 
 }

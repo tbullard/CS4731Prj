@@ -3,22 +3,26 @@ package dk.itu.mario.level;
 
 public class JumpBuildingTool extends Tool {
 
+	private int jumpLength;
+	private int jumpStart;
+	private boolean hasStairs;
+
 	public int build(int start, int length, int floor, MyLevel level) {
 		level.gaps++;
     	//jl: jump length
     	//js: the number of blocks that are available at either side for free
     	int end = (start + length);
-        int jumpLength = level.random.nextInt(99)%3 + 1;
-        int jumpStart = start + level.random.nextInt(length-jumpLength);
+        this.jumpLength = level.random.nextInt(99)%3 + 1;
+        this.jumpStart = start + 1 + level.random.nextInt(length-this.jumpLength-1);
 
-        int startHole = jumpStart;
-		int endHole = jumpStart + jumpLength;
+        int startHole = this.jumpStart;
+		int endHole = this.jumpStart + this.jumpLength;
 		
-		boolean hasStairs = level.random.nextInt(3) == 0;
-        int maxStairHeight = Math.min(start - startHole, endHole - end);
+		this.hasStairs = level.random.nextInt(3) == 0;
+        int maxStairHeight = Math.min(start - startHole-1, endHole - end-1);
     	int stairHeight = (level.random.nextInt(3) + 1) % maxStairHeight;
     	
-        hasStairs = true;
+        this.hasStairs = true;
     	stairHeight = 3;
         int stairLeftBegin	= startHole - stairHeight;
         int stairRightEnd	= endHole + stairHeight;
@@ -33,7 +37,7 @@ public class JumpBuildingTool extends Tool {
                     if (y >= floor) level.setBlock(x, y, MyLevel.GROUND);
                     
                   //if it is above ground, start making stairs of rocks
-                    else if (hasStairs)
+                    else if (this.hasStairs)
                     {	//LEFT SIDE
                     	if((x < startHole ) && (x > stairLeftBegin)) {
                     		if(( Math.abs(x - stairLeftBegin) >= Math.abs(y - floor) )) level.setBlock(x, y, MyLevel.ROCK);
@@ -51,7 +55,17 @@ public class JumpBuildingTool extends Tool {
 	}
 
 	public Tool clone() {
-		return new JumpBuildingTool();
+		int[] paramaters = {this.jumpLength,this.jumpStart,(hasStairs?0:1)};
+		Tool tool = new JumpBuildingTool();
+		tool.copyParamaters(paramaters);
+		return (tool);
+	}
+
+	@Override
+	public void copyParamaters(int[] paramters) {
+		this.jumpLength = paramters[0];
+		this.jumpStart	= paramters[1];
+		this.hasStairs	= paramters[2] == 0;
 	}
 
 }

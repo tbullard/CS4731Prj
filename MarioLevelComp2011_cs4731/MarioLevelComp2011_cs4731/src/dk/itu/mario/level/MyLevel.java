@@ -723,7 +723,14 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 			}
 			return profits;
 		}
-	    
 
 
+		@Override
+		public void createMutations() {
+			//TODO: deal with invalid mutations here or on the eval?
+			int previousFloor = buildings.get(0).floor;
+			for(Building building: buildings) {
+				building.mutate(random, height);
+			}
+		}
 }
