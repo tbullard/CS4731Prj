@@ -4,5 +4,7 @@ public enum PlayerStyle {
 	NEW,
 	SPEED,
 	KILLER,
-	EXPLORER
+	EXPLORER, 
+	//Always last
+	SIZE
 }

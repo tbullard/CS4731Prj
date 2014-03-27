@@ -47,11 +47,14 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        this(width, height);
 	        //TODO: getPlayerStyle from playerMetrics
 	        PlayerStyle playerStyle = PlayerStyle.NEW;
+//	        double[] ratios = new double[PlayerStyle.values().length];
+	        
+	        //RATIOS TO TEST
 //	        double[] ratios = {.25,.25,.25,.25}; //Kind of random
 //	        double[] ratios = {0,.75,.25,0}; // SPEED
 //	        double[] ratios = {0,.25,.75,0}; // KILLER
 	        double[] ratios = {0,0,1,0}; // Pure-KILLER
-//	        double[] ratios = {0,0,0,1}; // EXPLORER
+//	        double[] ratios = {0,0,0,1}; // Pure-EXPLORER
 	        
 	        create(LevelGenerator.create(playerStyle, ratios));
 	        double[] sW = {0,0,0,0}, sV = {0,0,0,0};
