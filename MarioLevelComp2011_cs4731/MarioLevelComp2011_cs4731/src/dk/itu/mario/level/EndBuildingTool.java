@@ -26,4 +26,7 @@ public class EndBuildingTool extends Tool{
 		return new EndBuildingTool();
 	}
 
+	@Override
+	public void copyParamaters(int[] paramters) {}
+
 }

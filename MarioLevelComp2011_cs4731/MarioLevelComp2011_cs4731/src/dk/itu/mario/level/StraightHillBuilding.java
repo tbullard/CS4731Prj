@@ -29,14 +29,21 @@ public class StraightHillBuilding extends Building {
 
 	@Override
 	public double[] getWeights() {
-		double[] result = {1,1,1,1};
+		double[] result = {5,5,5,5};
 		return result;
 	}
 
 	@Override
 	public double[] getProfits() {
-		double[] result = {1,1,1,1};
+		double[] result = {15,20,20,40};
 		return result;
+	}
+
+	@Override
+	public void mutateParameters() {
+		int len = MyLevel.random.nextInt(5) + 3;
+		int[] parameters = {len, MyLevel.random.nextInt(MyLevel.length - len - 2) + start + 1, MyLevel.random.nextInt(10)%3, MyLevel.random.nextInt(4)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 

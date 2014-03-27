@@ -35,8 +35,15 @@ public class JumpBuilding extends Building {
 
 	@Override
 	public double[] getProfits() {
-		double[] result = {3,3,3,3};
+		double[] result = {6,3,0,3};
 		return result;
+	}
+
+	@Override
+	public void mutateParameters() {
+        int jumpLen = MyLevel.random.nextInt(99)%3 + 1;
+		int[] parameters = {jumpLen,start + 1 + MyLevel.random.nextInt(MyLevel.length-jumpLen-1),MyLevel.random.nextInt(3)};
+		buildingTool.copyParamaters(parameters);
 	}
 
 

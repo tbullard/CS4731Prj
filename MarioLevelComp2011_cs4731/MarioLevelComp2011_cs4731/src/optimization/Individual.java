@@ -11,4 +11,6 @@ public interface Individual<T> {
 
 	public double[][] getWeights();
 	public double[][] getProfits();
+
+	public void createMutations();
 }

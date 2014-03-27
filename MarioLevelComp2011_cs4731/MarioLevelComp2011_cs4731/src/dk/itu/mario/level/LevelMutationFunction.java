@@ -11,7 +11,8 @@ public class LevelMutationFunction implements MutationFunction<MyLevel> {
 	@Override
 	public Individual<MyLevel> mutate(Individual<MyLevel> individual) {
 		// TODO
-		Individual<MyLevel> mutated = ((MyLevel) individual.getData()).copy();		
+		Individual<MyLevel> mutated = ((MyLevel) individual.getData()).copy();
+		mutated.createMutations();
 		return mutated;
 	}
 
