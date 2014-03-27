@@ -4,10 +4,13 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import dk.itu.mario.level.MyLevel;
+
 public class PlayCustomized {
 
 	public static void main(String[] args)
-     {
+	{
+	            MyLevel.argsStyle = args.length == 0 ? null : args[0];
 		    	JFrame frame = new JFrame("Mario Experience Showcase");
 		    	MarioComponent mario = new MarioComponent(640, 480,true);
 
