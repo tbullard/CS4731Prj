@@ -1,6 +1,7 @@
 package ann;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Datum implements Serializable {
@@ -35,5 +36,13 @@ public class Datum implements Serializable {
 
     public List<Double> getClassificaitons() {
         return classificationList;
+    }
+    
+    public static List<Double> packValues(double... values) {
+        ArrayList<Double> valuePack = new ArrayList<Double>();
+        for(double d : values) {
+            valuePack.add(d);
+        }
+        return valuePack;
     }
 }

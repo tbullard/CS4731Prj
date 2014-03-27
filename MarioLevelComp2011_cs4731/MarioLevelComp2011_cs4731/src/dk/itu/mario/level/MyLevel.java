@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ann.PlayerModelModule;
 import optimization.Individual;
 import optimization.MultiKnapsackEvaluationFunction;
 import dk.itu.mario.MarioInterface.GamePlay;
@@ -25,6 +26,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	 
 	private static Random levelSeedRandom = new Random();
 	public static long lastSeed;
+	public static String argsStyle;
 	
 	public static Random random;
 	  
@@ -45,7 +47,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 		public MyLevel(int width, int height, long seed, int difficulty, int type, GamePlay playerMetrics)
 	    {
 	        this(width, height);
-	        //TODO: getPlayerStyle from playerMetrics
+	        
 	        PlayerStyle playerStyle = PlayerStyle.NEW;
 //	        double[] ratios = new double[PlayerStyle.values().length];
 	        
@@ -55,6 +57,56 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 //	        double[] ratios = {0,.25,.75,0}; // KILLER
 	        double[] ratios = {0,0,1,0}; // Pure-KILLER
 //	        double[] ratios = {0,0,0,1}; // Pure-EXPLORER
+	        
+	        if(MyLevel.argsStyle == null) {
+	            
+	            PlayerModelModule pmm = PlayerModelModule.read("PlayerModelModule.txt");
+
+	            if(pmm != null) {
+	                
+	                Double[] inRatios = pmm.classifyGamePlay("player.txt");
+	                
+	                ratios[0] = inRatios[0];
+	                ratios[1] = inRatios[1];
+	                ratios[2] = inRatios[2];
+	                ratios[3] = inRatios[3];
+	                
+	                playerStyle = pmm.getStyle(inRatios); 
+	            }
+	        } else {
+	            if(MyLevel.argsStyle.equals("-NEW")) {
+	                
+	                ratios[0] = .97;
+	                ratios[1] = .01;
+	                ratios[2] = .01;
+	                ratios[3] = .01;
+	                
+	                
+	            } else if(MyLevel.argsStyle.equals("-KILLER")) {
+	                
+	                ratios[0] = .01;
+                    ratios[1] = .97;
+                    ratios[2] = .01;
+                    ratios[3] = .01;
+                    playerStyle = PlayerStyle.KILLER;
+                    
+	            } else if(MyLevel.argsStyle.equals("-EXPLOR")) {
+	                
+	                ratios[0] = .01;
+                    ratios[1] = .01;
+                    ratios[2] = .97;
+                    ratios[3] = .01;
+	                playerStyle = PlayerStyle.EXPLORER;
+	                
+	            }  else {
+	                
+	                ratios[0] = .01;
+                    ratios[1] = .01;
+                    ratios[2] = .01;
+                    ratios[3] = .97;
+	                playerStyle = PlayerStyle.SPEED;
+	            }
+	        }
 	        
 	        create(LevelGenerator.create(playerStyle, ratios));
 	        double[] sW = {0,0,0,0}, sV = {0,0,0,0};
