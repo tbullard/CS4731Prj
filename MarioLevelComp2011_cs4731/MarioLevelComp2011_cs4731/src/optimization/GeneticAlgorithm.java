@@ -64,6 +64,7 @@ public class GeneticAlgorithm<T> extends OptimizationAlgorithm<T> {
 		generateOffspring();
 		mutate();
 		selectPopulation();
+//		System.out.println(gap.value(this.getOptimal()));
 		return summedProbabilities;
 	}
 

@@ -112,7 +112,7 @@ public class MyLevel extends RandomLevel implements Individual<MyLevel>{
 	        double[] sW = {0,0,0,0}, sV = {0,0,0,0};
 	        for(int i =0; i < this.buildings.size(); i++) {
 	        	Building d = this.buildings.get(i);
-	        	System.out.println(d);
+	        	System.out.println(d.getClass().getName());
 	        	double[] w =  d.getWeights();
 	        	double[] p = d.getProfits();
 	        	for(int j=0;j < 4;j++) {
