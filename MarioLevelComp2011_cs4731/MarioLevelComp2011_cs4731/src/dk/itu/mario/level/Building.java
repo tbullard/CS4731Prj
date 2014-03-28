@@ -42,7 +42,7 @@ public abstract class Building {
 	}
 
 	private void mutateFloor(Random random, int height) {
-		this.floor = Math.min(this.floor + random.nextInt(3) - 1,height - 1);
+		this.floor = Math.min(this.floor - (random.nextInt(3)-1),height - 1);
 	}
 		
 }
